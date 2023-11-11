@@ -29,7 +29,18 @@ namespace kursova
             MessageBox.Show("Clicked!", "Sample App", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        private void TextBox_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            searchText.Opacity = 1;
+        }
 
+        private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (searchBox.Text == "")
+            {
+                searchText.Visibility = Visibility.Collapsed;
+            }
 
+        }
     }
 }
