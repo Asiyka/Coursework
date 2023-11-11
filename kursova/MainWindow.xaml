@@ -1,0 +1,62 @@
+﻿<Window x:Class="kursova.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:kursova" 
+        xmlns:WPF_Neumorphism_Plus="clr-namespace:WPF_Neumorphism_Plus;assembly=WPF_Neumorphism_Plus"
+        xmlns:Icon ="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="Transport" Height="720" Width="1080" WindowStartupLocation="CenterScreen" Background="Transparent">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
+
+    <Border  Background="#E9ECF1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="215"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Left Menu-->
+            <Grid  Background="#F2F3F8" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1" Width="185" Height="80" HorizontalAlignment="Center">
+                    <TextBlock Text="Transport." FontFamily="Gilroy" FontSize="32" FontWeight="Bold" Margin="10,-45,0,0"/>
+                </Grid>
+                <Grid Grid.Row="2" HorizontalAlignment="Center">
+                    <Grid Height="50" Width="180" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 -75 0 0">
+                        <TextBox Style="{StaticResource textboxSearch}"/>
+                        <TextBlock Text="Search here ..." FontFamily="gilroy" FontSize="16" Margin="18 16 0 0"/>
+                        <Button Height="32" Width="32" Margin="130 0 0 0" Background="Transparent" BorderBrush="Transparent">
+                            <Ellipse Height="30" Width="30">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Images/magnify50.png"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </Button>
+                        
+                    </Grid>
+                    
+                </Grid>
+
+                <Grid.Effect>
+                    <DropShadowEffect Color="#DBDBDB" Direction="-200" ShadowDepth="5" BlurRadius="50" Opacity="0.4"/>
+                </Grid.Effect>
+            </Grid>
+
+        </Grid>
+
+    </Border>
+</Window>
