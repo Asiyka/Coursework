@@ -10,8 +10,9 @@
         Title="Transport" Height="720" Width="1080" WindowStartupLocation="CenterScreen" Background="Transparent">
 
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <local:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
     </Window.Resources>
+
 
     <Border  Background="#E9ECF1">
         <Grid>
@@ -32,14 +33,16 @@
                     <RowDefinition Height="100"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="1" Width="185" Height="80" HorizontalAlignment="Center">
-                    <TextBlock Text="Transport." FontFamily="Gilroy" FontSize="32" FontWeight="Bold" Margin="10,-45,0,0"/>
+                <Grid Grid.Row="0" Width="185" Height="100" HorizontalAlignment="Center">
+                    <TextBlock Text="Transport." FontFamily="Gilroy" FontSize="32" FontWeight="Bold" Margin="10,35,0,0"/>
                 </Grid>
-                <Grid Grid.Row="2" HorizontalAlignment="Center">
-                    <Grid Height="60" Width="190" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 -78 0 0">
-                        <TextBox Name="searchBox" Style="{StaticResource textboxSearch}" LostKeyboardFocus="TextBox_LostKeyboardFocus" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-                        <TextBlock x:Name="searchText" Text="Search here ..." FontFamily="gilroy" FontSize="16" Margin="23 21 0 0" IsHitTestVisible="False" />
-                        <Button Height="27" Width="27" Margin="140 -4 0 0" Background="Transparent" BorderBrush="Transparent">
+                <!--Search Bar-->
+                <Grid Grid.Row="1" HorizontalAlignment="Center">
+                    <Grid Height="60" Width="190" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 20 0 0">
+                        <TextBox Name="searchBox" Style="{StaticResource textboxSearch}" />
+                        <TextBlock x:Name="searchText" Text="Search here ..." FontFamily="gilroy" FontSize="16" Margin="23,21,0,0" IsHitTestVisible="False" Visibility="{Binding ElementName=searchBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"
+ />
+                        <Button Style="{StaticResource NoHoverButtonStyle}" Height="27" Width="27" Margin="140 -2 0 0" Background="Transparent" BorderBrush="Transparent">
                             <Ellipse Height="25" Width="25">
                                 <Ellipse.Fill>
                                     <ImageBrush ImageSource="/Images/magnify50.png"/>
@@ -47,9 +50,10 @@
                             </Ellipse>
                         </Button>
                     </Grid>
-                    
+
                 </Grid>
-                <Grid Grid.Row="3">
+                <!--Buttons-->
+                <Grid Grid.Row="2">
                     <TextBlock Text="Actions" FontFamily="gilroy" FontSize="23" Margin="30 10 0 0"/>
                     <Button Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20 47 0 0">
                         <StackPanel Margin="65 0 0 0">
@@ -92,7 +96,80 @@
                     <DropShadowEffect Color="#DBDBDB" Direction="-200" ShadowDepth="5" BlurRadius="50" Opacity="0.4"/>
                 </Grid.Effect>
             </Grid>
+            <!--Table-->
+            <Grid Grid.Column="2" Grid.RowSpan="2" Background="#E9ECF1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Width="780" Height="30" Background="#E9ECF1" Margin="0 30 0 0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Brand" FontFamily="gilroy" FontSize="18" Margin="60 5 0 0"/>
+                            <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-500 0 0 0"/>
+                            <TextBlock Text="Engine" FontFamily="gilroy" FontSize="18" Margin="160 5 0 0"/>
+                            <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-310 0 0 0"/>
+                            <TextBlock Text="Power" FontFamily="gilroy" FontSize="18" Margin="250 5 0 0"/>
+                            <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-145 0 0 0"/>
+                            <TextBlock Text="Axles" FontFamily="gilroy" FontSize="18" Margin="333 5 0 0"/>
+                            <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="0 0 0 0"/>
+                            <TextBlock Text="Places" FontFamily="gilroy" FontSize="18" Margin="403 5 0 0"/>
+                            <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="160 0 0 0"/>
+                            <TextBlock Text="Sitting" FontFamily="gilroy" FontSize="18" Margin="485 5 0 0"/>
+                            <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="330 0 0 0"/>
+                            <TextBlock Text="Doors" FontFamily="gilroy" FontSize="18" Margin="570 5 0 0"/>
+                            <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="490 0 0 0"/>
+                            <TextBlock Text="Low" FontFamily="gilroy" FontSize="18" Margin="650 5 0 0"/>
+                    <Grid.Effect>
+                        <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader x:Name="Neuro"
+                            BorderRadius="25" BlurRadius="5" OffsetX="10" OffsetY="10" SpreadRadius="-1"
+                            PrimaryColor="#D3DBE6" SecondaryColor="#F4F7FC" Inset="0" />
+                    </Grid.Effect>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <DataGrid Background="#E9ECF1" Width="780" Height="490" BorderBrush="Transparent" HeadersVisibility="None" Margin="0 10 0 0" VerticalAlignment="Top" HorizontalAlignment="Center" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="#" IsReadOnly="True"/>
 
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid.Effect>
+                        <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader x:Name="Neuro2"
+                          BorderRadius="25" BlurRadius="5" OffsetX="10" OffsetY="10" SpreadRadius="-1"
+                          PrimaryColor="#D3DBE6" SecondaryColor="#F4F7FC" Inset="0" />
+                    </Grid.Effect>
+                </Grid>
+                <Grid Grid.Row="1" Margin="0 10 0 0">
+                    <Button Style="{StaticResource AddButton}" Height="25" Width="155" Margin="0 0 200 0">
+                        <Border>
+                            <StackPanel>
+                                <TextBlock Text="Add new transport" FontFamily="gilroy" FontSize="13" Margin="23 0 0 0"/>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                    <Border Width="130" Height="20" HorizontalAlignment="Right" Margin="0 0 60 0">
+                        <StackPanel>
+                            <Button Style="{StaticResource MovePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="0 0 0 0">
+                                <Icon:PackIconMaterial Kind="ChevronLeft" Height="12" Margin="2 0 0 0"/>
+                            </Button>
+                            <Button Style="{StaticResource ActivePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="22 -20 0 0">
+                                <TextBlock Text="1" FontFamily="gilroy" FontSize="17" FontWeight="Medium"/>
+                            </Button>
+                            <Button Style="{StaticResource UnActivePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="44 -20 0 0">
+                                <TextBlock Text="2" FontFamily="gilroy" FontSize="17" FontWeight="Medium"/>
+                            </Button>
+                            <TextBlock FontFamily="gilroy" Text="....." HorizontalAlignment="Left" Margin="70 -15 0 0" Foreground="#5E69C9"/>
+                            <Button Style="{StaticResource UnActivePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="88 -20 0 0">
+                                <TextBlock Text="10" FontFamily="gilroy" FontSize="17" FontWeight="Medium" />
+                            </Button>
+                            <Button Style="{StaticResource MovePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="110 -20 0 0">
+                                <Icon:PackIconMaterial Kind="ChevronRight" Height="12" Margin="2 0 0 0"/>
+                            </Button>
+
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+            </Grid>
         </Grid>
 
     </Border>
