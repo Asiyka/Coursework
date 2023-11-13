@@ -11,6 +11,70 @@
 
     <Window.Resources>
         <local:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+        <Style x:Key="EditButton" TargetType="Button">
+            <Setter Property="Background" Value="#E9ECF1"/>
+            <Setter Property="Foreground" Value="#5E69C9"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0 0 0 0"/>
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border x:Name="MainBorder" Background="#E9ECF1" CornerRadius="13" BorderThickness="0" BorderBrush="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Border.Effect>
+                                    <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader x:Name="Neuro2"
+                               BorderRadius="25" BlurRadius="5" OffsetX="10" OffsetY="10" SpreadRadius="-1"
+                               PrimaryColor="#D3DBE6" SecondaryColor="#F4F7FC" Inset="0" />
+                                </Border.Effect>
+                            </Border>
+                            <StackPanel>
+                                <TextBlock x:Name="TextEdit" Text="..." Margin="7 -5 0 10" Opacity="1"/>
+                                <Button Click="Button_Click" x:Name="EditEdit" Style="{StaticResource NoHoverButtonStyle}" Height="25" Width="25" Margin="0 -28 6 10" Opacity="0" Background="Transparent" BorderThickness="0">
+                                    <Image Source="/Images/edit.png" Height="25" Width="25"/>
+                                </Button>
+                                <Button Click="DeleteButton_Click" Tag="{Binding}" x:Name="BinEdit" Style="{StaticResource NoHoverButtonStyle}" Height="25" Width="25" Margin="0 -36 -8 10" Opacity="0" Background="Transparent" BorderThickness="0">
+                                    <Image Source="/Images/bin.png" Height="25" Width="25"/>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" To="76" Duration="0:0:0.2" />
+                                            <DoubleAnimation Storyboard.TargetName="TextEdit" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.01" />
+                                            <DoubleAnimation Storyboard.TargetName="EditEdit" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2" />
+                                            <DoubleAnimation Storyboard.TargetName="BinEdit" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2" />
+                                            <ThicknessAnimation Storyboard.TargetName="EditEdit" Storyboard.TargetProperty="Margin" To="-10 -28 20 10" Duration="0:0:0.2" />
+                                            <ThicknessAnimation Storyboard.TargetName="BinEdit" Storyboard.TargetProperty="Margin" To="15 -36 -18 10" Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" To = "30" Duration="0:0:0.2" />
+                                            <DoubleAnimation Storyboard.TargetName="EditEdit" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2" />
+                                            <DoubleAnimation Storyboard.TargetName="BinEdit" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2" />
+                                            <ThicknessAnimation Storyboard.TargetName="EditEdit" Storyboard.TargetProperty="Margin" To="0 -28 6 10" Duration="0:0:0.2" />
+                                            <ThicknessAnimation Storyboard.TargetName="BinEdit" Storyboard.TargetProperty="Margin" To="0 -36 -8 10" Duration="0:0:0.2" />
+                                            <DoubleAnimation Storyboard.TargetName="TextEdit" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.01" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
     </Window.Resources>
 
 
@@ -126,9 +190,35 @@
                     </Grid.Effect>
                 </Grid>
                 <Grid Grid.Row="2">
-                    <DataGrid Background="#E9ECF1" Width="780" Height="490" BorderBrush="Transparent" HeadersVisibility="None" Margin="0 10 0 0" VerticalAlignment="Top" HorizontalAlignment="Center" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False">
+                    <DataGrid x:Name="table" RowStyle="{StaticResource DataGridRowStyle1}" HeadersVisibility="None" VerticalScrollBarVisibility="Disabled" Padding="0 5 0 0" HorizontalScrollBarVisibility="Disabled" AutoGenerateColumns="False" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"  Background="#E9ECF1" Width="780" Height="490" BorderBrush="Transparent" Margin="0 10 0 0" VerticalAlignment="Top" HorizontalAlignment="Center" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="#" IsReadOnly="True"/>
+                            <DataGridTemplateColumn Header="#" IsReadOnly="True" Width="45">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Number}" Foreground="#5E69C9" FontWeight="Medium" Margin=" 0 4 0 0 " Padding="0 0 0 5"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Brand" IsReadOnly="True" Binding="{Binding Brand}" Width="89"/>
+                            <DataGridTextColumn Header="Engine" IsReadOnly="True" Binding="{Binding Engine}" Width="94" />
+                            <DataGridTextColumn Header="Power" IsReadOnly="True" Binding="{Binding Power}" Width="83"/>
+                            <DataGridTextColumn Header="Axles" IsReadOnly="True" Binding="{Binding Axles}" Width="72"/>
+                            <DataGridTextColumn Header="Places" IsReadOnly="True" Binding="{Binding Places}" Width="80" />
+                            <DataGridTextColumn Header="Sitting" IsReadOnly="True" Binding="{Binding Sitting}" Width="76" />
+                            <DataGridTextColumn Header="Doors" IsReadOnly="True" Binding="{Binding Doors}" Width="70"/>
+                            <DataGridTextColumn Header="Low" IsReadOnly="True" Binding="{Binding Low}" Width="61" />
+                            <DataGridTemplateColumn Header="Operations" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Button Style="{StaticResource EditButton}" Margin="0 0 15 0">
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
                         </DataGrid.Columns>
                     </DataGrid>
@@ -148,7 +238,7 @@
                     </Button>
                     <Border Width="130" Height="20" HorizontalAlignment="Right" Margin="0 0 60 0">
                         <StackPanel>
-                            <Button Style="{StaticResource MovePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="0 0 0 0">
+                            <Button Click="PreviousPage_Click" Style="{StaticResource MovePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="0 0 0 0">
                                 <Icon:PackIconMaterial Kind="ChevronLeft" Height="12" Margin="2 0 0 0"/>
                             </Button>
                             <Button Style="{StaticResource ActivePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="22 -20 0 0">
@@ -161,7 +251,7 @@
                             <Button Style="{StaticResource UnActivePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="88 -20 0 0">
                                 <TextBlock Text="10" FontFamily="gilroy" FontSize="17" FontWeight="Medium" />
                             </Button>
-                            <Button Style="{StaticResource MovePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="110 -20 0 0">
+                            <Button Click="NextPage_Click" Style="{StaticResource MovePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="110 -20 0 0">
                                 <Icon:PackIconMaterial Kind="ChevronRight" Height="12" Margin="2 0 0 0"/>
                             </Button>
 

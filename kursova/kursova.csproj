@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\bin.png" />
+    <None Remove="Images\edit.png" />
     <None Remove="Images\magnify50.png" />
   </ItemGroup>
 
@@ -18,6 +20,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\bin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\magnify50.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
