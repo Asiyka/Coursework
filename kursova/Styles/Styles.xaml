@@ -183,8 +183,8 @@
 
     </Style>
     <Style x:Key="ActivePageButton" TargetType="Button">
-        <Setter Property="Background" Value="#5E69C9"/>
-        <Setter Property="Foreground" Value="#E9ECF1"/>
+        <Setter Property="Background" Value="#E9ECF1"/>
+        <Setter Property="Foreground" Value="#5E69C9"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Width" Value="155"/>
         <Setter Property="Height" Value="25"/>
@@ -195,10 +195,24 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Grid>
-                        <Border x:Name="MainBorder" Background="#5E69C9" CornerRadius="4">
+
+                        <Border x:Name="MainBorder" Background="#E9ECF1" CornerRadius="4">
                             <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0.3" Storyboard.TargetName="MainBorder" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#5E69C9"/>
+                                        <ColorAnimation Duration="0:0:0.4" Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" To="#E9ECF1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                        
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -268,6 +282,5 @@
         </Setter>
 
     </Style>
-
 
 </ResourceDictionary>

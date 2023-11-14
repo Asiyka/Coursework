@@ -16,24 +16,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Security.Cryptography.Xml;
 using System.Windows.Media.Animation;
-using System.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Security.Policy;
+
 
 
 namespace kursova
@@ -80,7 +63,7 @@ namespace kursova
                     int itemsPerPage = 8;
                     int pageIndex = rowIndex / itemsPerPage;
 
-                    /*if (rowIndex % itemsPerPage == 0) // First row on the page
+                    if (rowIndex % itemsPerPage == 0) // First row on the page
                     {
                         row.Style = FindResource("FirstRowStyle") as Style;
                     }
@@ -91,13 +74,14 @@ namespace kursova
                     else
                     {
                         row.Style = FindResource("DataGridRowStyle1") as Style;
-                    }*/
+                    }
                 }
             };
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        private int TotalPages()
         {
-            MessageBox.Show("Clicked!", "Sample App", MessageBoxButton.OK, MessageBoxImage.Information);
+            return (int)Math.Ceiling((double)allTransports.Count / itemsPerPage);
         }
 
         private void ShowPage(int page)
@@ -108,7 +92,127 @@ namespace kursova
             currentPageTransports = new ObservableCollection<Transport>(allTransports.Skip(startIndex).Take(itemsPerPage));
 
             table.ItemsSource = currentPageTransports;
+            UpdatePageButtons();
         }
+
+
+        private void UpdatePageButtons()
+        {
+            int totalPageCount = TotalPages();
+
+            if (totalPageCount == 0)
+            {
+                firstBut.Opacity = 0;
+                firstBut.IsHitTestVisible = false;
+
+                secBut.Opacity = 0;
+                secBut.IsHitTestVisible = false;
+
+                dotBut.Opacity = 0;
+                dotBut.IsHitTestVisible = false;
+
+                lastBut.Opacity = 0;
+                lastBut.IsHitTestVisible = false;
+
+                nextBut.Margin = new Thickness(22, -20, 0, 0);
+            }
+            else if (totalPageCount == 1)
+            {
+                secBut.Opacity = 0;
+                secBut.IsHitTestVisible = false;
+
+                dotBut.Opacity = 0;
+                dotBut.IsHitTestVisible = false;
+
+                lastBut.Opacity = 0;
+                lastBut.IsHitTestVisible = false;
+
+                nextBut.Margin = new Thickness(44, -20, 0, 0);
+
+            }
+            else if (totalPageCount == 2)
+            {
+
+                dotBut.Opacity = 0;
+                dotBut.IsHitTestVisible = false;
+
+                lastBut.Opacity = 0;
+                lastBut.IsHitTestVisible = false;
+
+                nextBut.Margin = new Thickness(65, -20, 0, 0);
+            }
+            else if (totalPageCount == 3)
+            {
+                dotButTxt.Text = "3";
+
+                lastBut.Opacity = 0;
+                lastBut.IsHitTestVisible = false;
+
+                nextBut.Margin = new Thickness(88, -20, 0, 0);
+            }
+            else if (totalPageCount == 4)
+            {
+                dotButTxt.Text = "3";
+
+                lastButTxt.Text = "4";
+
+                nextBut.Margin = new Thickness(110, -20, 0, 0);
+            }
+            else
+            {
+                if (currentPage == totalPageCount - 4)
+                {
+                    firstButTxt.Text = (currentPage + 1).ToString();
+                    firstBut.Style = FindResource("UnActivePageButton") as Style;
+                    firstBut.Style = FindResource("ActivePageButton") as Style;
+                    secButTxt.Text = (currentPage + 2).ToString();
+                    dotButTxt.Text = (totalPageCount - 1).ToString();
+                    lastButTxt.Text = totalPageCount.ToString();
+                }
+                else if (currentPage >= totalPageCount - 4)
+                {
+
+                }
+                else
+                {
+                    firstButTxt.Text = (currentPage + 1).ToString();
+                    firstBut.Style = FindResource("UnActivePageButton") as Style;
+                    firstBut.Style = FindResource("ActivePageButton") as Style;
+                    secButTxt.Text = (currentPage + 2).ToString();
+                    secBut.Style = FindResource("UnActivePageButton") as Style;
+                    secBut.Style = FindResource("ActivePageButton") as Style;
+                    dotButTxt.Text = ".....";
+                    lastButTxt.Text = totalPageCount.ToString();
+
+                }
+            }
+            UpdateButtonStyles();
+        }
+
+
+
+        private void UpdateButtonStyles()
+        {
+            int totalPageCount = TotalPages();
+
+            for (int i = 1; i < 5; i++)
+            {
+                var button = (Button)PaginationStackPanel.Children[i];
+                var textBlock = (TextBlock)button.Content;
+                if (textBlock.Text != ".....")
+                {
+                    int buttonPage = int.Parse(textBlock.Text);
+                    if (buttonPage >= 1 && buttonPage <= totalPageCount)
+                    {
+
+
+                        button.Style = (buttonPage == currentPage + 1) ? FindResource("ActivePageButton") as Style : FindResource("UnActivePageButton") as Style;
+
+                    }
+                }
+            }
+        }
+
         private void NextPage_Click(object sender, RoutedEventArgs e)
         {
             int nextPage = currentPage + 1;
@@ -132,33 +236,26 @@ namespace kursova
 
             if (itemToDelete != null)
             {
-                // Get the DataGridRow for the item
                 DataGridRow row = table.ItemContainerGenerator.ContainerFromItem(itemToDelete) as DataGridRow;
 
                 if (row != null)
                 {
-                    // Create a storyboard for the animation
                     var storyboard = new Storyboard();
 
-                    // Define the animation for fading out the row
                     var opacityAnimation = new DoubleAnimation
                     {
                         To = 0,
                         Duration = TimeSpan.FromSeconds(0.3),
                     };
 
-                    // Add the opacity animation to the storyboard
                     Storyboard.SetTarget(opacityAnimation, row);
                     Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(UIElement.OpacityProperty));
                     storyboard.Children.Add(opacityAnimation);
 
-                    // Start the storyboard
                     storyboard.Begin();
 
-                    // Wait for the animation to complete before removing the item
                     await Task.Delay(300);
 
-                    // Remove the item from the ObservableCollection
                     allTransports.Remove(itemToDelete);
 
                     for (int i = 0; i < allTransports.Count; i++)
@@ -166,7 +263,6 @@ namespace kursova
                         allTransports[i].Number = (i + 1).ToString();
                     }
 
-                    // Refresh the DataGrid
                     CollectionViewSource.GetDefaultView(table.ItemsSource).Refresh();
                     ShowPage(currentPage);
                 }
