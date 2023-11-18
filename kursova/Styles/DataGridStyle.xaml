@@ -185,7 +185,7 @@
         <Setter Property="AutoGenerateColumns" Value="False"/>
         <Setter Property="HeadersVisibility" Value="None"/>
         <Setter Property="Margin" Value="0 10 0 0"/>
-        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="SelectionMode" Value="Extended"/>
         <Setter Property="SelectionUnit" Value="FullRow"/>
         <Setter Property="CanUserAddRows" Value="False"/>
         <Setter Property="CanUserDeleteRows" Value="False"/>

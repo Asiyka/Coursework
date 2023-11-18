@@ -282,5 +282,388 @@
         </Setter>
 
     </Style>
+    <Style x:Key="AddNewButton" TargetType="Button">
+        <Setter Property="Background" Value="#5E69C9"/>
+        <Setter Property="Foreground" Value="#F2F3F8"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Width" Value="125"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="30 280 0 0"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="MainBorder" Background="#5E69C9" CornerRadius="15" BorderThickness="1.5" BorderBrush="#5E69C9">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="MainBorder" Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="#E9ECF1" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="MainBorder" Storyboard.TargetProperty="(BorderBrush).(SolidColorBrush.Color)" To="#5E69C9" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" To="#5E69C9" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="MainBorder" Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="#5E69C9" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="MainBorder" Storyboard.TargetProperty="(BorderBrush).(SolidColorBrush.Color)" To="#5E69C9" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" To="#E9ECF1" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+    <Style x:Key="CancelNewButton" TargetType="Button">
+        <Setter Property="Background" Value="#F2F3F8"/>
+        <Setter Property="Foreground" Value="#5E69C9"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Width" Value="125"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="165 280 0 0"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="MainBorder" Background="#F2F3F8" CornerRadius="15" BorderThickness="1.5" BorderBrush="#5E69C9">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="MainBorder" Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="#5E69C9" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="MainBorder" Storyboard.TargetProperty="(BorderBrush).(SolidColorBrush.Color)" To="#5E69C9" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" To="#F2F3F8" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="MainBorder" Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="#F2F3F8" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="MainBorder" Storyboard.TargetProperty="(BorderBrush).(SolidColorBrush.Color)" To="#5E69C9" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" To="#5E69C9" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+    
+    <Style x:Key="BrandBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="#F2F3F8"/>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="65 95 0 10"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="9 5 0 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBoxBase">
+                    <Grid>
+                        <Border x:Name="fon" Width="215" Height="30" CornerRadius="15" Background="#F2F3F8" BorderBrush="#5E69C9" BorderThickness="1.5">
+                        </Border>
+                        <Border x:Name="border" HorizontalAlignment="Left" Margin="5 0 0 0" Width="195" Height="35" CornerRadius="23" Background="Transparent" SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="Transparent">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="NotEnteredBrandBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="#F2F3F8"/>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="65 95 0 10"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="9 5 0 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBoxBase">
+                    <Grid>
+                        <Border x:Name="fon" Width="215" Height="30" CornerRadius="15" Background="#F2F3F8" BorderBrush="red" BorderThickness="1.5">
+                        </Border>
+                        <Border x:Name="border" HorizontalAlignment="Left" Margin="5 0 0 0" Width="195" Height="35" CornerRadius="23" Background="Transparent" SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="Transparent">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="EngineBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="#F2F3F8"/>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="320 95 0 10"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="9 5 0 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBoxBase">
+                    <Grid>
+                        <Border x:Name="fon" Width="215" Height="30" CornerRadius="15" Background="#F2F3F8" BorderBrush="#5E69C9" BorderThickness="1.5">
+
+                        </Border>
+                        <Border x:Name="border" HorizontalAlignment="Left" Margin="5 0 0 0" Width="195" Height="35" CornerRadius="23" Background="Transparent" SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="Transparent">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="NotEnteredEngineBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="#F2F3F8"/>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="320 95 0 10"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="9 5 0 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBoxBase">
+                    <Grid>
+                        <Border x:Name="fon" Width="215" Height="30" CornerRadius="15" Background="#F2F3F8" BorderBrush="red" BorderThickness="1.5">
+
+                        </Border>
+                        <Border x:Name="border" HorizontalAlignment="Left" Margin="5 0 0 0" Width="195" Height="35" CornerRadius="23" Background="Transparent" SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="Transparent">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PowerBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="#F2F3F8"/>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="137 145 0 10"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="9 5 0 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBoxBase">
+                    <Grid>
+                        <Border x:Name="fon" Width="145" Height="30" CornerRadius="15" Background="#F2F3F8" BorderBrush="#5E69C9" BorderThickness="1.5">
+
+                        </Border>
+                        <Border x:Name="border" HorizontalAlignment="Left" Margin="5 0 0 0" Width="125" Height="35" CornerRadius="23" Background="Transparent" SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="Transparent">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="NotEnteredPowerBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="#F2F3F8"/>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="137 145 0 10"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="9 5 0 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBoxBase">
+                    <Grid>
+                        <Border x:Name="fon" Width="145" Height="30" CornerRadius="15" Background="#F2F3F8" BorderBrush="red" BorderThickness="1.5">
+
+                        </Border>
+                        <Border x:Name="border" HorizontalAlignment="Left" Margin="5 0 0 0" Width="125" Height="35" CornerRadius="23" Background="Transparent" SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="Transparent">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PlacesBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="#F2F3F8"/>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="137 195 0 10"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="9 5 0 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBoxBase">
+                    <Grid>
+                        <Border x:Name="fon" Width="145" Height="30" CornerRadius="15" Background="#F2F3F8" BorderBrush="#5E69C9" BorderThickness="1.5">
+
+                        </Border>
+                        <Border x:Name="border" HorizontalAlignment="Left" Margin="5 0 0 0" Width="125" Height="35" CornerRadius="23" Background="Transparent" SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="Transparent">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="NotEnteredPlacesBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="#F2F3F8"/>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="137 195 0 10"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="9 5 0 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBoxBase">
+                    <Grid>
+                        <Border x:Name="fon" Width="145" Height="30" CornerRadius="15" Background="#F2F3F8" BorderBrush="red" BorderThickness="1.5">
+
+                        </Border>
+                        <Border x:Name="border" HorizontalAlignment="Left" Margin="5 0 0 0" Width="125" Height="35" CornerRadius="23" Background="Transparent" SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="Transparent">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SittingBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="#F2F3F8"/>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="392 195 0 10"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="9 5 0 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBoxBase">
+                    <Grid>
+                        <Border x:Name="fon" Width="145" Height="30" CornerRadius="15" Background="#F2F3F8" BorderBrush="#5E69C9" BorderThickness="1.5">
+
+                        </Border>
+                        <Border x:Name="border" HorizontalAlignment="Left" Margin="5 0 0 0" Width="125" Height="35" CornerRadius="23" Background="Transparent" SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="Transparent">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="NotEnteredSittingBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="#F2F3F8"/>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="392 195 0 10"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="9 5 0 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBoxBase">
+                    <Grid>
+                        <Border x:Name="fon" Width="145" Height="30" CornerRadius="15" Background="#F2F3F8" BorderBrush="red" BorderThickness="1.5">
+
+                        </Border>
+                        <Border x:Name="border" HorizontalAlignment="Left" Margin="5 0 0 0" Width="125" Height="35" CornerRadius="23" Background="Transparent" SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="Transparent">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AxlesButton" TargetType="Button">
+        <Setter Property="Background" Value="#F2F3F8"/>
+        <Setter Property="Foreground" Value="#5E69C9"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Width" Value="155"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="0 3 0 0"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="MainBorder" Background="Transparent" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="MainBorder" Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="#5E69C9" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" To="#F2F3F8" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="MainBorder" Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="#F2F3F8" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" To="#5E69C9" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
 
 </ResourceDictionary>

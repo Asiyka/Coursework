@@ -15,10 +15,8 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Security.Cryptography.Xml;
+using System.Text.RegularExpressions;
 using System.Windows.Media.Animation;
-
-
-
 namespace kursova
 {
     
@@ -34,18 +32,18 @@ namespace kursova
             InitializeComponent();
             allTransports = new ObservableCollection<Transport> { };
 
-            for(int i = 0; i < 50; i++)
+            for(int i = 0; i < 12; i++)
             {
                 Transport newTransport = new Transport
                 {
-                    Brand = "Electron" + i,
-                    Engine = "Electric" + i,
+                    Brand = "Electron",
+                    Engine = "Electric",
                     Power = "854" + i,
                     Axles = "10" + i,
                     Places = "255" + i,
                     Sitting = "56" + i,
                     Doors = "10" + i,
-                    Low = "Yes" + i
+                    Low = "Yes"
                 };
 
                 newTransport.Number = (allTransports.Count + 1).ToString();
@@ -118,6 +116,9 @@ namespace kursova
             }
             else if (totalPageCount == 1)
             {
+                firstBut.Opacity = 1;
+                firstBut.IsHitTestVisible = true;
+
                 secBut.Opacity = 0;
                 secBut.IsHitTestVisible = false;
 
@@ -132,6 +133,11 @@ namespace kursova
             }
             else if (totalPageCount == 2)
             {
+                firstBut.Opacity = 1;
+                firstBut.IsHitTestVisible = true;
+
+                secBut.Opacity = 2;
+                secBut.IsHitTestVisible = true;
 
                 dotBut.Opacity = 0;
                 dotBut.IsHitTestVisible = false;
@@ -143,7 +149,17 @@ namespace kursova
             }
             else if (totalPageCount == 3)
             {
+                firstBut.Opacity = 1;
+                firstBut.IsHitTestVisible = true;
+
+                secBut.Opacity = 2;
+                secBut.IsHitTestVisible = true;
+
                 dotButTxt.Text = "3";
+
+                dotBut.Opacity = 1;
+                dotBut.IsHitTestVisible = true;
+
 
                 lastBut.Opacity = 0;
                 lastBut.IsHitTestVisible = false;
@@ -152,7 +168,20 @@ namespace kursova
             }
             else if (totalPageCount == 4)
             {
+                firstBut.Opacity = 1;
+                firstBut.IsHitTestVisible = true;
+
+                secBut.Opacity = 2;
+                secBut.IsHitTestVisible = true;
+
                 dotButTxt.Text = "3";
+
+                dotBut.Opacity = 1;
+                dotBut.IsHitTestVisible = true;
+
+
+                lastBut.Opacity = 1;
+                lastBut.IsHitTestVisible = true;
 
                 lastButTxt.Text = "4";
 
@@ -188,8 +217,6 @@ namespace kursova
             }
             UpdateButtonStyles();
         }
-
-
 
         private void UpdateButtonStyles()
         {
@@ -271,6 +298,40 @@ namespace kursova
 
         private void AddNewTransportButton_Click(object sender, RoutedEventArgs e)
         {
+            addnewtxt.Text = "Add";
+            addnewtxt.Margin = new Thickness(46, 0, 0, 0);
+
+            {
+                BrandTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                BrandBox.Style = FindResource("BrandBoxStyle") as Style;
+
+                EngineTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                EngineBox.Style = FindResource("EngineBoxStyle") as Style;
+
+                PowerTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                PowerBox.Style = FindResource("PowerBoxStyle") as Style;
+
+                PlacesTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                PlacesBox.Style = FindResource("PlacesBoxStyle") as Style;
+
+                SittingTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                SittingBox.Style = FindResource("SittingBoxStyle") as Style;
+
+                YesCheckBox.Style = FindResource("CheckBoxStyle1") as Style;
+                NoCheckBox.Style = FindResource("CheckBoxStyle1") as Style;
+            }
+            {
+                BrandBox.Text = string.Empty;
+                EngineBox.Text = string.Empty;
+                PowerBox.Text = string.Empty;
+                DoorscounttButTxt.Text = "1";
+                PlacesBox.Text = string.Empty;  
+                AxlescounttButTxt.Text = "1";
+                SittingBox.Text = string.Empty;
+                YesCheckBox.IsChecked = false;
+                NoCheckBox.IsChecked = false;
+                
+            }
             DoubleAnimation fadeInAnimation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.2));
             addEditTransport.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
 
@@ -284,6 +345,7 @@ namespace kursova
 
             addEditTransport.IsHitTestVisible = false;
         }
+       
         private bool isAnimationInProgress = false;
 
         private void Button1_Click(object sender, RoutedEventArgs e)
@@ -442,6 +504,325 @@ namespace kursova
             }
         }
 
+        private void DoorsminusOneBut_Click(object sender, RoutedEventArgs e)
+        {
+            if(int.Parse(DoorscounttButTxt.Text) > 0)
+            {
+                DoorscounttButTxt.Text = (int.Parse(DoorscounttButTxt.Text) - 1).ToString();
+            }
+        }
+
+        private void DoorsplusOneBut_Click(object sender, RoutedEventArgs e)
+        {
+                DoorscounttButTxt.Text = (int.Parse(DoorscounttButTxt.Text) + 1).ToString();
+        }
+
+        private void AxlesminusOneBut_Click(object sender, RoutedEventArgs e)
+        {
+            if (int.Parse(AxlescounttButTxt.Text) > 1)
+            {
+                AxlescounttButTxt.Text = (int.Parse(AxlescounttButTxt.Text) - 1).ToString();
+            }
+        }
+
+        private void AxlesplusOneBut_Click(object sender, RoutedEventArgs e)
+        {
+            AxlescounttButTxt.Text = (int.Parse(AxlescounttButTxt.Text) + 1).ToString();
+
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+
+            if (checkBox != null)
+            {
+                if (checkBox == YesCheckBox && NoCheckBox.IsChecked == true)
+                {
+                    NoCheckBox.IsChecked = false;
+                }
+                else if (checkBox == NoCheckBox && YesCheckBox.IsChecked == true)
+                {
+                    YesCheckBox.IsChecked = false;
+                }
+            }
+        }
+
+        private void AddNewButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(addnewtxt.Text == "Add")
+            {
+                Transport transport = new Transport();
+                bool allFieldsEntered = true;
+
+                if (string.IsNullOrEmpty(BrandBox.Text))
+                {
+                    BrandBox.Style = FindResource("NotEnteredBrandBoxStyle") as Style;
+                    BrandTxt.Foreground = Brushes.Red;
+
+                    allFieldsEntered = false;
+                }
+                else
+                {
+                    transport.Brand = BrandBox.Text;
+                }
+                if (string.IsNullOrEmpty(EngineBox.Text))
+                {
+                    EngineBox.Style = FindResource("NotEnteredEngineBoxStyle") as Style;
+                    EngineTxt.Foreground = Brushes.Red;
+
+                    allFieldsEntered = false;
+                }
+                else
+                {
+                    transport.Engine = EngineBox.Text;
+                }
+                if (string.IsNullOrEmpty(PowerBox.Text))
+                {
+                    PowerBox.Style = FindResource("NotEnteredPowerBoxStyle") as Style;
+                    PowerTxt.Foreground = Brushes.Red;
+
+                    allFieldsEntered = false;
+                }
+                else
+                {
+                    transport.Power = PowerBox.Text;
+                }
+                if (string.IsNullOrEmpty(PlacesBox.Text))
+                {
+                    PlacesBox.Style = FindResource("NotEnteredPlacesBoxStyle") as Style;
+                    PlacesTxt.Foreground = Brushes.Red;
+
+                    allFieldsEntered = false;
+                }
+                else
+                {
+                    transport.Places = PlacesBox.Text;
+                }
+                if (string.IsNullOrEmpty(SittingBox.Text))
+                {
+                    SittingBox.Style = FindResource("NotEnteredSittingBoxStyle") as Style;
+                    SittingTxt.Foreground = Brushes.Red;
+
+                    allFieldsEntered = false;
+                }
+                else
+                {
+                    transport.Sitting = SittingBox.Text;
+                }
+
+                transport.Doors = DoorscounttButTxt.Text;
+                transport.Axles = AxlescounttButTxt.Text;
+
+                if (!(YesCheckBox.IsChecked == true || NoCheckBox.IsChecked == true))
+                {
+                    YesCheckBox.Style = FindResource("NotEnteredCheckBoxStyle1") as Style;
+                    NoCheckBox.Style = FindResource("NotEnteredCheckBoxStyle1") as Style;
+
+                }
+                else
+                {
+                    transport.Low = (YesCheckBox.IsChecked == true) ? "Yes" : "No";
+
+                }
+
+                if (allFieldsEntered)
+                {
+                    transport.Number = (allTransports.Count + 1).ToString();
+
+
+                    allTransports.Add(transport);
+                    ShowPage(currentPage);
+
+                    DoubleAnimation fadeOutAnimation = new DoubleAnimation(0, TimeSpan.FromSeconds(0.2));
+                    addEditTransport.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+
+                    addEditTransport.IsHitTestVisible = false;
+                }
+
+            }
+            else if(addnewtxt.Text == "Apply")
+            {
+                Transport transport = new Transport();
+                bool allFieldsEntered = true;
+
+
+                if (string.IsNullOrEmpty(BrandBox.Text))
+                {
+                    BrandBox.Style = FindResource("NotEnteredBrandBoxStyle") as Style;
+                    BrandTxt.Foreground = Brushes.Red;
+
+                    allFieldsEntered = false;
+                }
+                else
+                {
+                    transport.Brand = BrandBox.Text;
+                }
+                if (string.IsNullOrEmpty(EngineBox.Text))
+                {
+                    EngineBox.Style = FindResource("NotEnteredEngineBoxStyle") as Style;
+                    EngineTxt.Foreground = Brushes.Red;
+
+                    allFieldsEntered = false;
+                }
+                else
+                {
+                    transport.Engine = EngineBox.Text;
+                }
+                if (string.IsNullOrEmpty(PowerBox.Text))
+                {
+                    PowerBox.Style = FindResource("NotEnteredPowerBoxStyle") as Style;
+                    PowerTxt.Foreground = Brushes.Red;
+
+                    allFieldsEntered = false;
+                }
+                else
+                {
+                    transport.Power = PowerBox.Text;
+                }
+                if (string.IsNullOrEmpty(PlacesBox.Text))
+                {
+                    PlacesBox.Style = FindResource("NotEnteredPlacesBoxStyle") as Style;
+                    PlacesTxt.Foreground = Brushes.Red;
+
+                    allFieldsEntered = false;
+                }
+                else
+                {
+                    transport.Places = PlacesBox.Text;
+                }
+                if (string.IsNullOrEmpty(SittingBox.Text))
+                {
+                    SittingBox.Style = FindResource("NotEnteredSittingBoxStyle") as Style;
+                    SittingTxt.Foreground = Brushes.Red;
+
+                    allFieldsEntered = false;
+                }
+                else
+                {
+                    transport.Sitting = SittingBox.Text;
+                }
+
+                transport.Doors = DoorscounttButTxt.Text;
+                transport.Axles = AxlescounttButTxt.Text;
+
+                if (!(YesCheckBox.IsChecked == true || NoCheckBox.IsChecked == true))
+                {
+                    YesCheckBox.Style = FindResource("NotEnteredCheckBoxStyle1") as Style;
+                    NoCheckBox.Style = FindResource("NotEnteredCheckBoxStyle1") as Style;
+
+                }
+                else
+                {
+                    transport.Low = (YesCheckBox.IsChecked == true) ? "Yes" : "No";
+
+                }
+
+                if (allFieldsEntered)
+                {
+                    transport.Number = (currentEditing).ToString();
+
+                    allTransports[currentEditing - 1] = transport;
+                    ShowPage(currentPage);
+
+                    DoubleAnimation fadeOutAnimation = new DoubleAnimation(0, TimeSpan.FromSeconds(0.2));
+                    addEditTransport.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+
+                    addEditTransport.IsHitTestVisible = false;
+                }
+
+            }
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsNumericInput(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+        private bool IsNumericInput(string text)
+        {
+            Regex regex = new Regex(@"^[+-]?[1-9]\d*$|^0$");
+
+            bool hasLeadingZeros = text.Length > 1 && text[0] == '0';
+
+            return regex.IsMatch(text) && !hasLeadingZeros;
+        }
+
+        private void TextBox_PreviewTextInput1(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsAlphabeticNumericInput(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+        private bool IsAlphabeticNumericInput(string text)
+        {
+            Regex regex = new Regex("^[a-zA-Z-]+$");
+
+            return regex.IsMatch(text);
+        }
+
+        int currentEditing = -1;
+        private void EditEdit_Click(object sender, RoutedEventArgs e)
+        {
+            addnewtxt.Text = "Apply";
+            addnewtxt.Margin = new Thickness(43, 0, 0, 0);
+            {
+                BrandTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                BrandBox.Style = FindResource("BrandBoxStyle") as Style;
+
+                EngineTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                EngineBox.Style = FindResource("EngineBoxStyle") as Style;
+
+                PowerTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                PowerBox.Style = FindResource("PowerBoxStyle") as Style;
+
+                PlacesTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                PlacesBox.Style = FindResource("PlacesBoxStyle") as Style;
+
+                SittingTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                SittingBox.Style = FindResource("SittingBoxStyle") as Style;
+
+                YesCheckBox.Style = FindResource("CheckBoxStyle1") as Style;
+                NoCheckBox.Style = FindResource("CheckBoxStyle1") as Style;
+            }
+            
+            Transport itemToEdit = (sender as Button).Tag as Transport;
+
+            {
+                
+                BrandBox.Text = itemToEdit.Brand;
+                EngineBox.Text = itemToEdit.Engine;
+                PowerBox.Text = itemToEdit.Power;
+                DoorscounttButTxt.Text = itemToEdit.Doors;
+                PlacesBox.Text = itemToEdit.Places;
+                AxlescounttButTxt.Text = itemToEdit.Axles;
+                SittingBox.Text = itemToEdit.Sitting;
+                if (itemToEdit.Low == "Yes")
+                {
+                    YesCheckBox.IsChecked = true;
+                }
+                else
+                {
+                    NoCheckBox.IsChecked = true;
+                }
+
+            }
+            currentEditing = int.Parse(itemToEdit.Number);
+
+            DoubleAnimation fadeInAnimation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.2));
+            addEditTransport.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+
+            addEditTransport.IsHitTestVisible = true;
+
+        }
+
+        private void BackToMainButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPage(0);
+        }
     }
 
     public class StringToVisibilityConverter : IValueConverter

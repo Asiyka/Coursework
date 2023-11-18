@@ -34,7 +34,7 @@
                             </Border>
                             <StackPanel>
                                 <TextBlock x:Name="TextEdit" Text="..." Margin="7 -5 0 10" Opacity="1"/>
-                                <Button x:Name="EditEdit" Style="{StaticResource NoHoverButtonStyle}" Height="23" Width="23" Margin="0 -28 6 8" Opacity="0" Background="Transparent" BorderThickness="0">
+                                <Button Click="EditEdit_Click" Tag="{Binding}" x:Name="EditEdit" Style="{StaticResource NoHoverButtonStyle}" Height="23" Width="23" Margin="0 -28 6 8" Opacity="0" Background="Transparent" BorderThickness="0">
                                     <Image Source="/Images/edit.png"/>
                                 </Button>
                                 <Button Click="DeleteButton_Click" Tag="{Binding}" x:Name="BinEdit" Style="{StaticResource NoHoverButtonStyle}" Height="23" Width="23" Margin="0 -32 -8 8" Opacity="0" Background="Transparent" BorderThickness="0">
@@ -105,8 +105,7 @@
                 <Grid Grid.Row="1" HorizontalAlignment="Center">
                     <Grid Height="60" Width="190" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 20 0 0">
                         <TextBox Name="searchBox" Style="{StaticResource textboxSearch}" />
-                        <TextBlock x:Name="searchText" Text="Search here ..." FontFamily="gilroy" FontSize="16" Margin="23,21,0,0" IsHitTestVisible="False" Visibility="{Binding ElementName=searchBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"
- />
+                        <TextBlock x:Name="searchText" Text="Search here ..." FontFamily="gilroy" FontSize="16" Margin="23,21,0,0" IsHitTestVisible="False" Visibility="{Binding ElementName=searchBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
                         <Button Style="{StaticResource NoHoverButtonStyle}" Height="27" Width="27" Margin="140 -2 0 0" Background="Transparent" BorderBrush="Transparent">
                             <Ellipse Height="25" Width="25">
                                 <Ellipse.Fill>
@@ -195,20 +194,20 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" Width="780" Height="30" Background="#E9ECF1" Margin="0 30 0 0" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock Text="Brand" FontFamily="gilroy" FontSize="18" Margin="60 5 0 0"/>
-                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-500 0 0 0"/>
-                    <TextBlock Text="Engine" FontFamily="gilroy" FontSize="18" Margin="160 5 0 0"/>
-                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-310 0 0 0"/>
-                    <TextBlock Text="Power" FontFamily="gilroy" FontSize="18" Margin="250 5 0 0"/>
-                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-145 0 0 0"/>
-                    <TextBlock Text="Axles" FontFamily="gilroy" FontSize="18" Margin="333 5 0 0"/>
-                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="0 0 0 0"/>
-                    <TextBlock Text="Places" FontFamily="gilroy" FontSize="18" Margin="403 5 0 0"/>
-                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="160 0 0 0"/>
-                    <TextBlock Text="Sitting" FontFamily="gilroy" FontSize="18" Margin="485 5 0 0"/>
-                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="330 0 0 0"/>
-                    <TextBlock Text="Doors" FontFamily="gilroy" FontSize="18" Margin="570 5 0 0"/>
-                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="490 0 0 0"/>
-                    <TextBlock Text="Low" FontFamily="gilroy" FontSize="18" Margin="650 5 0 0"/>
+                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-515 0 0 0"/>
+                    <TextBlock Text="Engine" FontFamily="gilroy" FontSize="18" Margin="154 5 0 0"/>
+                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-325 0 0 0"/>
+                    <TextBlock Text="Power" FontFamily="gilroy" FontSize="18" Margin="245 5 0 0"/>
+                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-160 0 0 0"/>
+                    <TextBlock Text="Axles" FontFamily="gilroy" FontSize="18" Margin="326 5 0 0"/>
+                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-15 0 0 0"/>
+                    <TextBlock Text="Places" FontFamily="gilroy" FontSize="18" Margin="396 5 0 0"/>
+                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="145 0 0 0"/>
+                    <TextBlock Text="Sitting" FontFamily="gilroy" FontSize="18" Margin="474 5 0 0"/>
+                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="295 0 0 0"/>
+                    <TextBlock Text="Doors" FontFamily="gilroy" FontSize="18" Margin="550 5 0 0"/>
+                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="440 0 0 0"/>
+                    <TextBlock Text="Low" FontFamily="gilroy" FontSize="18" Margin="621 5 0 0"/>
                     <Grid.Effect>
                         <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader x:Name="Neuro"
                             BorderRadius="25" BlurRadius="5" OffsetX="10" OffsetY="10" SpreadRadius="-1"
@@ -262,6 +261,13 @@
                             </StackPanel>
                         </Border>
                     </Button>
+                    <Button Opacity="0" IsHitTestVisible="False" Click="BackToMainButton_Click" Style="{StaticResource NoHoverButtonStyle}" Width="185" Height="28" HorizontalAlignment="Left" Margin="40 7 0 0" Background="Transparent" BorderBrush="Transparent">
+                        <Border>
+                            <StackPanel>
+                                <TextBlock Foreground="#5E69C9" Text="← Back to main table" FontFamily="gilroy" FontSize="16" Margin="10 5 0 0"/>
+                            </StackPanel>
+                        </Border>
+                    </Button>
                     <Border Width="130" Height="20" HorizontalAlignment="Right" Margin="0 0 60 0">
                         <StackPanel x:Name="PaginationStackPanel">
                             <Button x:Name="prevBut" Click="PreviousPage_Click" Style="{StaticResource MovePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="0 0 0 0">
@@ -289,9 +295,88 @@
 
             </Grid>
             <Grid IsHitTestVisible="False" x:Name="addEditTransport" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="0" Grid.Row="0" Width="1080" Height="720" Opacity="0">
-                <Button Background="#000" Opacity="0.3" Click="exitAddEditButton_Click" Style="{StaticResource NoHoverButtonStyle}"/>
-                <Border Background="#fff" Height="400" Width="600" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Background="#000000" Opacity="0.3" Click="exitAddEditButton_Click" Style="{StaticResource NoHoverButtonStyle}"/>
+                <Border Background="#F2F3F8" Height="350" Width="600" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 -50 0 0">
+                    <Grid>
+                        <TextBlock Text="Add new transport" FontFamily="Gilroy" FontSize="18" FontWeight="Regular" Margin="30,20,0,0" Foreground="#525252"/>
+                        <Button Style="{StaticResource NoHoverButtonStyle}" Click="exitAddEditButton_Click" Width="20" Height="20" Margin="540 -298 0 0">
+                            <Border>
+                                <StackPanel>
+                                    <Icon:PackIconRadixIcons Foreground="#525252" Kind="Cross2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 4 0 0" Width="12" Height="12"/>
+                                </StackPanel>
+                            </Border>
+                        </Button>
+                        
+                        <TextBlock Text="Brand" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="65,70,0,0" Foreground="#000000"/>
+                        <TextBox PreviewTextInput="TextBox_PreviewTextInput1" Name="BrandBox" Style="{StaticResource BrandBoxStyle}" />
+                        <TextBlock x:Name="BrandTxt" Text="Enter brand name" Foreground="#525252" FontFamily="gilroy" FontSize="16" Margin="80,104,0,0" IsHitTestVisible="False" Visibility="{Binding ElementName=BrandBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
 
+                        <TextBlock Text="Power" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="65,150,0,0" Foreground="#000000"/>
+                        <TextBox PreviewTextInput="TextBox_PreviewTextInput" Name="PowerBox" Style="{StaticResource PowerBoxStyle}" />
+                        <TextBlock x:Name="PowerTxt" Text="Engine power" Foreground="#525252" FontFamily="gilroy" FontSize="16" Margin="152,154,0,0" IsHitTestVisible="False" Visibility="{Binding ElementName=PowerBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
+
+                        <TextBlock Text="Places" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="65,200,0,0" Foreground="#000000"/>
+                        <TextBox PreviewTextInput="TextBox_PreviewTextInput" Name="PlacesBox" Style="{StaticResource PlacesBoxStyle}" />
+                        <TextBlock x:Name="PlacesTxt" Text="Number places" Foreground="#525252" FontFamily="gilroy" FontSize="16" Margin="152,204,0,0" IsHitTestVisible="False" Visibility="{Binding ElementName=PlacesBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
+
+                        <TextBlock Text="Axles" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="65,249,0,0" Foreground="#000000"/>
+                        <StackPanel x:Name="AxlesPusMinusStackPanel" Margin="140 250 0 0">
+                            <Button x:Name="AxlesminusOneBut" Click="AxlesminusOneBut_Click" Style="{StaticResource AxlesButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="0 0 0 0">
+                                <Icon:PackIconMaterial Kind="ChevronLeft" Height="12" Margin="2 0 0 0"/>
+                            </Button>
+                            <Button x:Name="AxlescountBut" Style="{StaticResource ActivePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="22 -20 0 0">
+                                <TextBlock x:Name="AxlescounttButTxt" Text="1" FontFamily="gilroy" FontSize="17" FontWeight="Medium"/>
+                            </Button>
+                            <Button x:Name="AxlesplusOneBut" Click="AxlesplusOneBut_Click"  Style="{StaticResource AxlesButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="44 -20 0 0">
+                                <Icon:PackIconMaterial Kind="ChevronRight" Height="12" Margin="2 0 0 0"/>
+                            </Button>
+                        </StackPanel>
+
+
+
+                        <TextBlock Text="Engine" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="320,70,0,0" Foreground="#000000"/>
+                        <TextBox PreviewTextInput="TextBox_PreviewTextInput1" Name="EngineBox" Style="{StaticResource EngineBoxStyle}" />
+                        <TextBlock x:Name="EngineTxt" Text="Enter engine type" Foreground="#525252" FontFamily="gilroy" FontSize="16" Margin="335,104,0,0" IsHitTestVisible="False" Visibility="{Binding ElementName=EngineBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
+
+                        <TextBlock Text="Doors" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="320,149,0,0" Foreground="#000000"/>
+                        <StackPanel x:Name="DoorsPusMinusStackPanel" Margin="395 150 0 0">
+                            <Button x:Name="DoorsminusOneBut" Click="DoorsminusOneBut_Click" Style="{StaticResource AxlesButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="0 0 0 0">
+                                <Icon:PackIconMaterial Kind="ChevronLeft" Height="12" Margin="2 0 0 0"/>
+                            </Button>
+                            <Button x:Name="DoorscountBut" Style="{StaticResource ActivePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="22 -20 0 0">
+                                <TextBlock x:Name="DoorscounttButTxt" Text="1" FontFamily="gilroy" FontSize="17" FontWeight="Medium"/>
+                            </Button>
+                            <Button x:Name="DoorsplusOneBut" Click="DoorsplusOneBut_Click" Style="{StaticResource AxlesButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="44 -20 0 0">
+                                <Icon:PackIconMaterial Kind="ChevronRight" Height="12" Margin="2 0 0 0"/>
+                            </Button>
+                        </StackPanel>
+
+                        <TextBlock Text="Sitting" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="320,200,0,0" Foreground="#000000"/>
+                        <TextBox PreviewTextInput="TextBox_PreviewTextInput" Name="SittingBox" Style="{StaticResource SittingBoxStyle}" />
+                        <TextBlock x:Name="SittingTxt" Text="Number sitting" Foreground="#525252" FontFamily="gilroy" FontSize="16" Margin="407,204,0,0" IsHitTestVisible="False" Visibility="{Binding ElementName=SittingBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
+
+                        <TextBlock Text="Low floors" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="320,249,0,0" Foreground="#000000"/>
+                        <CheckBox x:Name="YesCheckBox" Style="{DynamicResource CheckBoxStyle1}" Margin="430 253 0 0" Checked="CheckBox_Checked"/>
+                        <TextBlock  Text="yes" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="450,249,0,0" Foreground="#000000"/>
+                        <CheckBox x:Name="NoCheckBox" Style="{DynamicResource CheckBoxStyle1}" Margin="490 253 0 0" Checked="CheckBox_Checked"/>
+                        <TextBlock  Text="no" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="510,249,0,0" Foreground="#000000"/>
+
+
+                        <Button x:Name="addnew" Style="{StaticResource AddNewButton}" Click="AddNewButton_Click">
+                            <Border>
+                                <StackPanel>
+                                    <TextBlock x:Name="addnewtxt" Text="Add" FontFamily="gilroy" Margin="46 0 0 0"/>
+                                </StackPanel>
+                            </Border>
+                        </Button>
+                        <Button Style="{StaticResource CancelNewButton}" Click="exitAddEditButton_Click">
+                            <Border>
+                                <StackPanel>
+                                    <TextBlock Text="Cancel" FontFamily="gilroy" Margin="34 0 0 0"/>
+                                </StackPanel>
+                            </Border>
+                        </Button>
+                    </Grid>
                 </Border>
             </Grid>
         </Grid>

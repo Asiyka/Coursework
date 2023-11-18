@@ -9,6 +9,7 @@
              <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/Styles.xaml" />
                 <ResourceDictionary Source="/Styles/DataGridStyle.xaml" />
+                <ResourceDictionary Source="/Styles/CheckBoxStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
          </ResourceDictionary>
         
