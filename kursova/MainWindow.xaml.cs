@@ -34,7 +34,7 @@ namespace kursova
             InitializeComponent();
             allTransports = new ObservableCollection<Transport> { };
 
-            for(int i = 0; i < 12; i++)
+            for(int i = 0; i < 50; i++)
             {
                 Transport newTransport = new Transport
                 {
@@ -269,6 +269,179 @@ namespace kursova
             }
         }
 
+        private void AddNewTransportButton_Click(object sender, RoutedEventArgs e)
+        {
+            DoubleAnimation fadeInAnimation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.2));
+            addEditTransport.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+
+            addEditTransport.IsHitTestVisible = true;
+        }
+
+        private void exitAddEditButton_Click(object sender, RoutedEventArgs e)
+        {
+            DoubleAnimation fadeOutAnimation = new DoubleAnimation(0, TimeSpan.FromSeconds(0.2));
+            addEditTransport.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+
+            addEditTransport.IsHitTestVisible = false;
+        }
+        private bool isAnimationInProgress = false;
+
+        private void Button1_Click(object sender, RoutedEventArgs e)
+        {
+            if (!isAnimationInProgress)
+            {
+                
+
+                ThicknessAnimation moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(-220, 37, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                };
+                Button2.BeginAnimation(MarginProperty, moveOut);
+
+                moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(-220, 103, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                    BeginTime = TimeSpan.FromSeconds(0.1)
+                };
+                Button3.BeginAnimation(MarginProperty, moveOut);
+
+                moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(-220, 169, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                    BeginTime = TimeSpan.FromSeconds(0.2)
+                };
+                Button4.BeginAnimation(MarginProperty, moveOut);
+
+                moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(-220, 235, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                    BeginTime = TimeSpan.FromSeconds(0.3)
+                };
+                Button5.BeginAnimation(MarginProperty, moveOut);
+
+                moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(-220, 301, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                    BeginTime = TimeSpan.FromSeconds(0.4)
+                };
+                Button6.BeginAnimation(MarginProperty, moveOut);
+
+                moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(-20, 37, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                    BeginTime = TimeSpan.FromSeconds(0.1)
+                };
+                Button2new.BeginAnimation(MarginProperty, moveOut);
+
+                moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(-20, 103, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                    BeginTime = TimeSpan.FromSeconds(0.2)
+                };
+                Button3new.BeginAnimation(MarginProperty, moveOut);
+
+                moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(-20, 169, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                    BeginTime = TimeSpan.FromSeconds(0.3)
+                };
+                Button4new.BeginAnimation(MarginProperty, moveOut);
+
+                DoubleAnimation fadeOutAnimation = new DoubleAnimation(0, TimeSpan.FromSeconds(0.2));
+                text1.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+                text2.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+                fadeOutAnimation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.2));
+                text1new.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+                text2new.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+
+                isAnimationInProgress = true;
+            }
+            else
+            {
+                
+
+                ThicknessAnimation moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(-20, 37, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                };
+                Button2.BeginAnimation(MarginProperty, moveOut);
+
+                moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(-20, 103, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                    BeginTime = TimeSpan.FromSeconds(0.1)
+                };
+                Button3.BeginAnimation(MarginProperty, moveOut);
+
+                moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(-20, 169, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                    BeginTime = TimeSpan.FromSeconds(0.2)
+                };
+                Button4.BeginAnimation(MarginProperty, moveOut);
+
+                moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(-20, 235, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                    BeginTime = TimeSpan.FromSeconds(0.3)
+                };
+                Button5.BeginAnimation(MarginProperty, moveOut);
+
+                moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(-20, 301, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                    BeginTime = TimeSpan.FromSeconds(0.4)
+                };
+                Button6.BeginAnimation(MarginProperty, moveOut);
+
+                moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(220, 37, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                    BeginTime = TimeSpan.FromSeconds(0.1)
+                };
+                Button2new.BeginAnimation(MarginProperty, moveOut);
+
+                moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(220, 103, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                    BeginTime = TimeSpan.FromSeconds(0.2)
+                };
+                Button3new.BeginAnimation(MarginProperty, moveOut);
+
+                moveOut = new ThicknessAnimation
+                {
+                    To = new Thickness(220, 169, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.3),
+                    BeginTime = TimeSpan.FromSeconds(0.3)
+                };
+                Button4new.BeginAnimation(MarginProperty, moveOut);
+
+                DoubleAnimation fadeOutAnimation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.2));
+                text1.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+                text2.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+                fadeOutAnimation = new DoubleAnimation(0, TimeSpan.FromSeconds(0.2));
+                text1new.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+                text2new.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+
+                isAnimationInProgress = false;
+            }
+        }
+
     }
 
     public class StringToVisibilityConverter : IValueConverter
@@ -302,7 +475,7 @@ namespace kursova
             if (other == null)
                 return false;
 
-            return Number == other.Number; // Use a unique identifier for comparison
+            return Number == other.Number; 
         }
 
         public override bool Equals(object obj)

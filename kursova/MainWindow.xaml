@@ -90,6 +90,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+
             <!--Left Menu-->
             <Grid  Background="#F2F3F8" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
@@ -118,41 +119,66 @@
                 </Grid>
                 <!--Buttons-->
                 <Grid Grid.Row="2">
-                    <TextBlock Text="Actions" FontFamily="gilroy" FontSize="23" Margin="30 10 0 0"/>
-                    <Button Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20 47 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="38*"/>
+                        <RowDefinition Height="229*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Actions" FontFamily="gilroy" FontSize="23" Margin="30 10 0 0" Grid.RowSpan="2"/>
+                    <Button x:Name="Button1" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20 47 0 0" Grid.RowSpan="2" Click="Button1_Click" Opacity="1">
                         <StackPanel Margin="65 0 0 0">
-                            <TextBlock Text="Operations with table" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
-                            <TextBlock Text="Table" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
+                            <TextBlock x:Name="text1" Text="Operations with table" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0" Opacity="1"/>
+                            <TextBlock x:Name="text2" Text="Table" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0" Opacity="1"/>
+                            <TextBlock x:Name="text1new" Text="Back to main menu" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -41 0 0" Opacity="0"/>
+                            <TextBlock x:Name="text2new" Text="← Back" FontSize="21" FontFamily="gilroy" Margin="0 -25 0 0" Opacity="0"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20 113 0 0">
+                    <Button x:Name="Button2" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20,37,0,0" Grid.Row="1">
                         <StackPanel Margin="65 0 0 0">
                             <TextBlock Text="Sort all transport (Shell)" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
                             <TextBlock Text="Sort" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20 179 0 0">
+                    <Button x:Name="Button3" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20,103,0,0" Grid.Row="1">
                         <StackPanel Margin="65 0 0 0">
                             <TextBlock Text="Calculate engine average" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
                             <TextBlock Text="Calculate" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20 245 0 0">
+                    <Button x:Name="Button4" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20,169,0,0" Grid.Row="1">
                         <StackPanel Margin="65 0 0 0">
                             <TextBlock Text="Most powerful engine with&#10;20-26 sitting places" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
                             <TextBlock Text="Search" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20 311 0 0">
+                    <Button x:Name="Button5" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20,235,0,0" Grid.Row="1">
                         <StackPanel Margin="65 0 0 0">
                             <TextBlock Text="Engine power more than&#10;average with 4 axles" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
                             <TextBlock Text="Search" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20 377 0 0">
+                    <Button x:Name="Button6" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20,301,0,0" Grid.Row="1">
                         <StackPanel Margin="65 0 0 0">
                             <TextBlock Text="Low floor, more than 4&#10;doors and 40 places" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
                             <TextBlock Text="Search" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="Button2new" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="220,37,0,0" Grid.Row="1">
+                        <StackPanel Margin="65 0 0 0">
+                            <TextBlock Text="Open table from file" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
+                            <TextBlock Text="Open" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="Button3new" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="220,103,0,0" Grid.Row="1">
+                        <StackPanel Margin="65 0 0 0">
+                            <TextBlock Text="Save table to file" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
+                            <TextBlock Text="Save" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="Button4new" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="220,169,0,0" Grid.Row="1">
+                        <StackPanel Margin="65 0 0 0">
+                            <TextBlock Text="Print table" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
+                            <TextBlock Text="Print" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
                         </StackPanel>
                     </Button>
                 </Grid>
@@ -168,21 +194,21 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" Width="780" Height="30" Background="#E9ECF1" Margin="0 30 0 0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Text="Brand" FontFamily="gilroy" FontSize="18" Margin="60 5 0 0"/>
-                            <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-500 0 0 0"/>
-                            <TextBlock Text="Engine" FontFamily="gilroy" FontSize="18" Margin="160 5 0 0"/>
-                            <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-310 0 0 0"/>
-                            <TextBlock Text="Power" FontFamily="gilroy" FontSize="18" Margin="250 5 0 0"/>
-                            <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-145 0 0 0"/>
-                            <TextBlock Text="Axles" FontFamily="gilroy" FontSize="18" Margin="333 5 0 0"/>
-                            <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="0 0 0 0"/>
-                            <TextBlock Text="Places" FontFamily="gilroy" FontSize="18" Margin="403 5 0 0"/>
-                            <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="160 0 0 0"/>
-                            <TextBlock Text="Sitting" FontFamily="gilroy" FontSize="18" Margin="485 5 0 0"/>
-                            <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="330 0 0 0"/>
-                            <TextBlock Text="Doors" FontFamily="gilroy" FontSize="18" Margin="570 5 0 0"/>
-                            <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="490 0 0 0"/>
-                            <TextBlock Text="Low" FontFamily="gilroy" FontSize="18" Margin="650 5 0 0"/>
+                    <TextBlock Text="Brand" FontFamily="gilroy" FontSize="18" Margin="60 5 0 0"/>
+                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-500 0 0 0"/>
+                    <TextBlock Text="Engine" FontFamily="gilroy" FontSize="18" Margin="160 5 0 0"/>
+                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-310 0 0 0"/>
+                    <TextBlock Text="Power" FontFamily="gilroy" FontSize="18" Margin="250 5 0 0"/>
+                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-145 0 0 0"/>
+                    <TextBlock Text="Axles" FontFamily="gilroy" FontSize="18" Margin="333 5 0 0"/>
+                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="0 0 0 0"/>
+                    <TextBlock Text="Places" FontFamily="gilroy" FontSize="18" Margin="403 5 0 0"/>
+                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="160 0 0 0"/>
+                    <TextBlock Text="Sitting" FontFamily="gilroy" FontSize="18" Margin="485 5 0 0"/>
+                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="330 0 0 0"/>
+                    <TextBlock Text="Doors" FontFamily="gilroy" FontSize="18" Margin="570 5 0 0"/>
+                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="490 0 0 0"/>
+                    <TextBlock Text="Low" FontFamily="gilroy" FontSize="18" Margin="650 5 0 0"/>
                     <Grid.Effect>
                         <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader x:Name="Neuro"
                             BorderRadius="25" BlurRadius="5" OffsetX="10" OffsetY="10" SpreadRadius="-1"
@@ -229,10 +255,10 @@
                     </Grid.Effect>
                 </Grid>
                 <Grid Grid.Row="1" Margin="0 10 0 0">
-                    <Button Style="{StaticResource AddButton}" Height="25" Width="155" Margin="0 0 200 0">
+                    <Button Style="{StaticResource AddButton}" Click="AddNewTransportButton_Click">
                         <Border>
                             <StackPanel>
-                                <TextBlock Text="Add new transport" FontFamily="gilroy" FontSize="13" Margin="23 0 0 0"/>
+                                <TextBlock Text="Add new transport" FontFamily="gilroy" Margin="24 0 0 0"/>
                             </StackPanel>
                         </Border>
                     </Button>
@@ -262,7 +288,12 @@
                 </Grid>
 
             </Grid>
-        </Grid>
+            <Grid IsHitTestVisible="False" x:Name="addEditTransport" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="0" Grid.Row="0" Width="1080" Height="720" Opacity="0">
+                <Button Background="#000" Opacity="0.3" Click="exitAddEditButton_Click" Style="{StaticResource NoHoverButtonStyle}"/>
+                <Border Background="#fff" Height="400" Width="600" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center">
 
+                </Border>
+            </Grid>
+        </Grid>
     </Border>
 </Window>
