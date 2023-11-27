@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="/Styles/Styles.xaml" />
                 <ResourceDictionary Source="/Styles/DataGridStyle.xaml" />
                 <ResourceDictionary Source="/Styles/CheckBoxStyle.xaml" />
+                <ResourceDictionary Source="/Styles/ComboBoxStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
          </ResourceDictionary>
         

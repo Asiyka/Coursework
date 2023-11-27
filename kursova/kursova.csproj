@@ -10,13 +10,13 @@
   <ItemGroup>
     <None Remove="Images\bin.png" />
     <None Remove="Images\edit.png" />
+    <None Remove="Images\error.png" />
     <None Remove="Images\magnify50.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
-    <PackageReference Include="MahApps.Metro.IconPacks.RadixIcons" Version="4.11.0" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+    <PackageReference Include="MahApps.Metro.IconPacks.RadixIcons" Version="4.10.0" />
     <PackageReference Include="WPF_Neumorphism_Plus" Version="1.1.4" />
   </ItemGroup>
 
@@ -25,6 +25,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\error.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\magnify50.png">
