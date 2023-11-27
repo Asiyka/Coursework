@@ -7,34 +7,79 @@
         Background="Transparent"
         AllowsTransparency="True"
         Title="MessageOutput" Height="300" Width="480" WindowStyle="None">
+    
     <Border Background="#F2F3F8" 
             BorderBrush="Transparent"
             CornerRadius="20"
             Width="380"
             Height="170">
+        
         <Grid>
-            <TextBlock Text="Error" FontFamily="Gilroy" FontSize="17" FontWeight="Regular" Margin="20,10,0,0" Foreground="#525252"/>
-            <Button Style="{StaticResource NoHoverButtonStyle}" Click="ExitButton_Click" Width="15" Height="15" Margin="330 -125 0 0">
+            <!--Header-->
+            <TextBlock Text="Error" 
+                       FontFamily="Gilroy" 
+                       FontSize="17" 
+                       FontWeight="Regular" 
+                       Margin="20,10,0,0" 
+                       Foreground="#525252"/>
+            
+            <!--Exit button-->
+            <Button Style="{StaticResource NoHoverButtonStyle}" 
+                    Click="ExitButton_Click" 
+                    Width="15" 
+                    Height="15" 
+                    Margin="330 -125 0 0">
+                
                 <Border>
                     <StackPanel>
-                        <Icon:PackIconRadixIcons Foreground="#525252" Kind="Cross2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0" Width="12" Height="12"/>
+                        <Icon:PackIconRadixIcons Foreground="#525252" 
+                                                 Kind="Cross2" 
+                                                 HorizontalAlignment="Center" 
+                                                 VerticalAlignment="Center"
+                                                 Margin="0 0 0 0" 
+                                                 Width="12" 
+                                                 Height="12"/>
                     </StackPanel>
                 </Border>
             </Button>
-            <Button Style="{StaticResource CancelNewButton}" Click="ExitButton_Click" Margin="250 120 0 0" Width="100" Height="25" >
+            
+            <!--Ok button-->
+            <Button Style="{StaticResource CancelNewButton}" 
+                    Click="ExitButton_Click" 
+                    Margin="250 120 0 0" 
+                    Width="100" 
+                    Height="25" >
+                
                 <Border>
                     <StackPanel>
-                        <TextBlock Text="Ok" FontFamily="gilroy" Margin="40 0 0 0"/>
+                        <TextBlock Text="Ok" 
+                                   FontFamily="gilroy" 
+                                   Margin="40 0 0 0"/>
                     </StackPanel>
                 </Border>
             </Button>
-            <Grid VerticalAlignment="Center" Margin="100 0 30 0">
-                <TextBlock x:Name="ErrorTxt" Text="" FontSize="14" VerticalAlignment="Center"/>
+            
+            <!--Error output-->
+            <Grid VerticalAlignment="Center" 
+                  Margin="100 0 30 0">
+                
+                <TextBlock x:Name="ErrorTxt" 
+                           Text="" FontSize="14" 
+                           VerticalAlignment="Center"/>
             </Grid>
-            <Image Source="Images/error.png" Width="40" Margin="-260 0 0 0"/>
+            
+            <!--Error icon-->
+            <Image Source="Images/error.png" 
+                   Width="40" 
+                   Margin="-260 0 0 0"/>
+        
         </Grid>
+        
         <Border.Effect>
-            <DropShadowEffect Color="#333" ShadowDepth="0" Opacity="0.15" BlurRadius="20"/>
+            <DropShadowEffect Color="#333" 
+                              ShadowDepth="0" 
+                              Opacity="0.15" 
+                              BlurRadius="20"/>
         </Border.Effect>
     </Border>
     

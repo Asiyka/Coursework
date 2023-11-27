@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace kursova
 {
-    /// <summary>
-    /// Interaction logic for AverageOutput.xaml
-    /// </summary>
     public partial class AverageOutput : Window
     {
         public AverageOutput()

@@ -12,6 +12,7 @@
     <None Remove="Images\edit.png" />
     <None Remove="Images\error.png" />
     <None Remove="Images\magnify50.png" />
+    <None Remove="Images\T.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +32,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\magnify50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\T.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

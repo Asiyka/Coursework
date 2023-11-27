@@ -7,12 +7,18 @@
         xmlns:WPF_Neumorphism_Plus="clr-namespace:WPF_Neumorphism_Plus;assembly=WPF_Neumorphism_Plus"
         xmlns:Icon ="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
+        Icon="/Images/T.ico"
         ResizeMode="NoResize"        
-        Title="Transport" Height="720" Width="1080" WindowStartupLocation="CenterScreen" Background="Transparent">
+        Title="Transport" 
+        Height="720" 
+        Width="1080" 
+        WindowStartupLocation="CenterScreen" 
+        Background="Transparent">
 
     <Window.Resources>
         <local:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
         <Style x:Key="EditButton" TargetType="Button">
+            
             <Setter Property="Background" Value="#E9ECF1"/>
             <Setter Property="Foreground" Value="#5E69C9"/>
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -21,54 +27,138 @@
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Margin" Value="0 0 0 0"/>
             <Setter Property="FontSize" Value="23"/>
+            
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Grid>
-                            <Border x:Name="MainBorder" Background="#E9ECF1" CornerRadius="13" BorderThickness="0" BorderBrush="Transparent">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Border x:Name="MainBorder" 
+                                    Background="#E9ECF1" 
+                                    CornerRadius="13" 
+                                    BorderThickness="0" 
+                                    BorderBrush="Transparent">
+                                
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                                  VerticalAlignment="Center" />
+                                
                                 <Border.Effect>
-                                    <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader x:Name="Neuro2"
-                               BorderRadius="25" BlurRadius="5" OffsetX="10" OffsetY="10" SpreadRadius="-1"
-                               PrimaryColor="#D3DBE6" SecondaryColor="#F4F7FC" Inset="0" />
+                                    <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader
+                                        x:Name="Neuro2"
+                                        BorderRadius="25" 
+                                        BlurRadius="5" 
+                                        OffsetX="10" 
+                                        OffsetY="10" 
+                                        SpreadRadius="-1"
+                                        PrimaryColor="#D3DBE6" 
+                                        SecondaryColor="#F4F7FC" 
+                                        Inset="0" />
                                 </Border.Effect>
                             </Border>
                             <StackPanel>
-                                <TextBlock x:Name="TextEdit" Text="..." Margin="7 -5 0 10" Opacity="1"/>
-                                <Button Click="EditEdit_Click" Tag="{Binding}" x:Name="EditEdit" Style="{StaticResource NoHoverButtonStyle}" Height="23" Width="23" Margin="0 -28 6 8" Opacity="0" Background="Transparent" BorderThickness="0">
+                                <TextBlock x:Name="TextEdit" 
+                                           Text="..." 
+                                           Margin="7 -5 0 10" 
+                                           Opacity="1"/>
+                                
+                                <Button Click="EditEdit_Click" 
+                                        Tag="{Binding}" 
+                                        x:Name="EditEdit" 
+                                        Style="{StaticResource NoHoverButtonStyle}" 
+                                        Height="23" 
+                                        Width="23" 
+                                        Margin="0 -28 6 8" 
+                                        Opacity="0" 
+                                        Background="Transparent" 
+                                        BorderThickness="0">
+                                    
                                     <Image Source="/Images/edit.png"/>
+                                
                                 </Button>
-                                <Button Click="DeleteButton_Click" Tag="{Binding}" x:Name="BinEdit" Style="{StaticResource NoHoverButtonStyle}" Height="23" Width="23" Margin="0 -32 -8 8" Opacity="0" Background="Transparent" BorderThickness="0">
+                                
+                                <Button Click="DeleteButton_Click" 
+                                        Tag="{Binding}" 
+                                        x:Name="BinEdit" 
+                                        Style="{StaticResource NoHoverButtonStyle}" 
+                                        Height="23" 
+                                        Width="23" 
+                                        Margin="0 -32 -8 8" 
+                                        Opacity="0" 
+                                        Background="Transparent" 
+                                        BorderThickness="0">
+                                    
                                     <Image Source="/Images/bin.png"/>
+                                
                                 </Button>
                             </StackPanel>
                         </Grid>
+                        
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                
                                 <Trigger.EnterActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Width" To="76" Duration="0:0:0.2" />
-                                            <DoubleAnimation Storyboard.TargetName="TextEdit" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.01" />
-                                            <DoubleAnimation Storyboard.TargetName="EditEdit" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2" />
-                                            <DoubleAnimation Storyboard.TargetName="BinEdit" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2" />
-                                            <ThicknessAnimation Storyboard.TargetName="EditEdit" Storyboard.TargetProperty="Margin" To="-10 -28 20 8" Duration="0:0:0.2" />
-                                            <ThicknessAnimation Storyboard.TargetName="BinEdit" Storyboard.TargetProperty="Margin" To="15 -32 -18 8" Duration="0:0:0.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" 
+                                                             To="76" 
+                                                             Duration="0:0:0.2" />
+                                            <DoubleAnimation Storyboard.TargetName="TextEdit" 
+                                                             Storyboard.TargetProperty="Opacity" 
+                                                             To="0" 
+                                                             Duration="0:0:0.01" />
+                                            <DoubleAnimation Storyboard.TargetName="EditEdit" 
+                                                             Storyboard.TargetProperty="Opacity" 
+                                                             To="1" 
+                                                             Duration="0:0:0.2" />
+                                            <DoubleAnimation Storyboard.TargetName="BinEdit" 
+                                                             Storyboard.TargetProperty="Opacity" 
+                                                             To="1" 
+                                                             Duration="0:0:0.2" />
+                                            
+                                            <ThicknessAnimation Storyboard.TargetName="EditEdit" 
+                                                                Storyboard.TargetProperty="Margin" 
+                                                                To="-10 -28 20 8" 
+                                                                Duration="0:0:0.2" />
+                                            <ThicknessAnimation Storyboard.TargetName="BinEdit" 
+                                                                Storyboard.TargetProperty="Margin" 
+                                                                To="15 -32 -18 8" 
+                                                                Duration="0:0:0.2" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.EnterActions>
+                                
                                 <Trigger.ExitActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Width" To = "30" Duration="0:0:0.2" />
-                                            <DoubleAnimation Storyboard.TargetName="EditEdit" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2" />
-                                            <DoubleAnimation Storyboard.TargetName="BinEdit" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2" />
-                                            <ThicknessAnimation Storyboard.TargetName="EditEdit" Storyboard.TargetProperty="Margin" To="0 -28 6 8" Duration="0:0:0.2" />
-                                            <ThicknessAnimation Storyboard.TargetName="BinEdit" Storyboard.TargetProperty="Margin" To="0 -32 -8 8" Duration="0:0:0.2" />
-                                            <DoubleAnimation Storyboard.TargetName="TextEdit" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.01" />
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" 
+                                                             To = "30" 
+                                                             Duration="0:0:0.2" />
+                                            <DoubleAnimation Storyboard.TargetName="EditEdit" 
+                                                             Storyboard.TargetProperty="Opacity" 
+                                                             To="0" 
+                                                             Duration="0:0:0.2" />
+                                            <DoubleAnimation Storyboard.TargetName="BinEdit" 
+                                                             Storyboard.TargetProperty="Opacity" 
+                                                             To="0" 
+                                                             Duration="0:0:0.2" />
+                                            
+                                            <ThicknessAnimation Storyboard.TargetName="EditEdit" 
+                                                                Storyboard.TargetProperty="Margin" 
+                                                                To="0 -28 6 8" 
+                                                                Duration="0:0:0.2" />
+                                            <ThicknessAnimation Storyboard.TargetName="BinEdit" 
+                                                                Storyboard.TargetProperty="Margin" 
+                                                                To="0 -32 -8 8" 
+                                                                Duration="0:0:0.2" />
+                                            
+                                            <DoubleAnimation Storyboard.TargetName="TextEdit" 
+                                                             Storyboard.TargetProperty="Opacity" 
+                                                             To="1" 
+                                                             Duration="0:0:0.01" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.ExitActions>
+                                
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -92,288 +182,975 @@
             </Grid.ColumnDefinitions>
 
 
-            <!--Left Menu-->
-            <Grid  Background="#F2F3F8" Grid.RowSpan="2">
+            <!--Left Panel-->
+            <Grid  Background="#F2F3F8" 
+                   Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="70"/>
                     <RowDefinition Height="100"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Width="185" Height="100" HorizontalAlignment="Center">
-                    <TextBlock Text="Transport." FontFamily="Gilroy" FontSize="32" FontWeight="Bold" Margin="10,35,0,0"/>
+                <!--Header-->
+                <Grid Grid.Row="0" 
+                      Width="185" 
+                      Height="100" 
+                      HorizontalAlignment="Center">
+                    
+                    <TextBlock Text="Transport." 
+                               FontFamily="Gilroy" 
+                               FontSize="32" 
+                               FontWeight="Bold" 
+                               Margin="10,35,0,0"/>
                 </Grid>
                 <!--Search Bar-->
-                <Grid Grid.Row="1" HorizontalAlignment="Center">
-                    <Grid Height="60" Width="190" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 20 0 0">
-                        <TextBox Name="searchBox" Style="{StaticResource textboxSearch}" />
-                        <TextBlock x:Name="searchText" Text="Search here ..." FontFamily="gilroy" FontSize="16" Margin="23,21,0,0" IsHitTestVisible="False" Visibility="{Binding ElementName=searchBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
-                        <Button Click="SearchButton_Click" Style="{StaticResource NoHoverButtonStyle}" Height="27" Width="27" Margin="140 -2 0 0" Background="Transparent" BorderBrush="Transparent">
-                            <Ellipse Height="25" Width="25">
+                <Grid Grid.Row="1" 
+                      HorizontalAlignment="Center">
+
+                    <Grid Height="60" 
+                          Width="190" 
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Top" 
+                          Margin="0 20 0 0">
+
+                        <TextBox Name="searchBox" 
+                                 Style="{StaticResource textboxSearch}" />
+
+                        <TextBlock x:Name="searchText" Text="Search here ..." 
+                                   FontFamily="gilroy" 
+                                   FontSize="16" 
+                                   Margin="23,21,0,0" 
+                                   IsHitTestVisible="False" 
+                                   Visibility="{Binding ElementName=searchBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
+
+                        <Button Click="SearchButton_Click" 
+                                Style="{StaticResource NoHoverButtonStyle}" 
+                                Height="27" 
+                                Width="27" 
+                                Margin="140 -2 0 0" 
+                                Background="Transparent" 
+                                BorderBrush="Transparent">
+
+                            <Ellipse Height="25" 
+                                     Width="25">
                                 <Ellipse.Fill>
                                     <ImageBrush ImageSource="/Images/magnify50.png"/>
                                 </Ellipse.Fill>
                             </Ellipse>
                         </Button>
                     </Grid>
-
                 </Grid>
-                <!--Buttons-->
+                <!--Menu-->
                 <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="38*"/>
                         <RowDefinition Height="229*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Actions" FontFamily="gilroy" FontSize="23" Margin="30 10 0 0" Grid.RowSpan="2"/>
-                    <Button x:Name="Button1" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20 47 0 0" Grid.RowSpan="2" Click="Button1_Click" Opacity="1">
+                    <!--Header-->
+                    <TextBlock Text="Actions" 
+                               FontFamily="gilroy" 
+                               FontSize="23" 
+                               Margin="30 10 0 0" 
+                               Grid.RowSpan="2"/>
+                    <!--Buttons-->
+                    <Button x:Name="Button1" 
+                            Style="{StaticResource PannelButton}" 
+                            VerticalAlignment="Top" 
+                            Margin="-20 47 0 0" 
+                            Grid.RowSpan="2" 
+                            Click="Button1_Click" 
+                            Opacity="1">
+                        
                         <StackPanel Margin="65 0 0 0">
-                            <TextBlock x:Name="text1" Text="Operations with table" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0" Opacity="1"/>
-                            <TextBlock x:Name="text2" Text="Table" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0" Opacity="1"/>
-                            <TextBlock x:Name="text1new" Text="Back to main menu" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -41 0 0" Opacity="0"/>
-                            <TextBlock x:Name="text2new" Text="← Back" FontSize="21" FontFamily="gilroy" Margin="0 -25 0 0" Opacity="0"/>
+                            <TextBlock x:Name="text1" 
+                                       Text="Operations with table" 
+                                       Foreground="#5E69C9" 
+                                       FontSize="12" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 -1 0 0" 
+                                       Opacity="1"/>
+                            <TextBlock x:Name="text2" 
+                                       Text="Table" 
+                                       FontSize="21" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 3 0 0" 
+                                       Opacity="1"/>
+                            <TextBlock x:Name="text1new" 
+                                       Text="Back to main menu" 
+                                       Foreground="#5E69C9" 
+                                       FontSize="12" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 -41 0 0" 
+                                       Opacity="0"/>
+                            <TextBlock x:Name="text2new" 
+                                       Text="← Back" 
+                                       FontSize="21" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 -25 0 0" 
+                                       Opacity="0"/>
                         </StackPanel>
                     </Button>
-                    <Button Click="Sort_Click" x:Name="Button2" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20,37,0,0" Grid.Row="1">
+                    
+                    <Button Click="Sort_Click" 
+                            x:Name="Button2" 
+                            Style="{StaticResource PannelButton}" 
+                            VerticalAlignment="Top" 
+                            Margin="-20,37,0,0" 
+                            Grid.Row="1">
+                        
                         <StackPanel Margin="65 0 0 0">
-                            <TextBlock Text="Sort all transport (Shell)" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
-                            <TextBlock Text="Sort" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
+                            <TextBlock Text="Sort all transport (Shell)" 
+                                       Foreground="#5E69C9" 
+                                       FontSize="12" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 -1 0 0"/>
+                            <TextBlock Text="Sort" 
+                                       FontSize="21" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 3 0 0"/>
                         </StackPanel>
                     </Button>
-                    <Button Click="EngineAverage_Click" x:Name="Button3" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20,103,0,0" Grid.Row="1">
+                    
+                    <Button Click="EngineAverage_Click" 
+                            x:Name="Button3" 
+                            Style="{StaticResource PannelButton}" 
+                            VerticalAlignment="Top" 
+                            Margin="-20,103,0,0" 
+                            Grid.Row="1">
+                        
                         <StackPanel Margin="65 0 0 0">
-                            <TextBlock Text="Calculate engine average" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
-                            <TextBlock Text="Calculate" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
+                            <TextBlock Text="Calculate engine average" 
+                                       Foreground="#5E69C9" 
+                                       FontSize="12" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 -1 0 0"/>
+                            <TextBlock Text="Calculate" 
+                                       FontSize="21" 
+                                       FontFamily="gilroy"
+                                       Margin="0 3 0 0"/>
                         </StackPanel>
                     </Button>
-                    <Button Click="PowEngineSeating_Click" x:Name="Button4" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20,169,0,0" Grid.Row="1">
+                    
+                    <Button Click="PowEngineSeating_Click" 
+                            x:Name="Button4" 
+                            Style="{StaticResource PannelButton}" 
+                            VerticalAlignment="Top" 
+                            Margin="-20,169,0,0" 
+                            Grid.Row="1">
+                        
                         <StackPanel Margin="65 0 0 0">
-                            <TextBlock Text="Most powerful electric &#10;engine with 20-26 seatings" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
-                            <TextBlock Text="Search" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
+                            <TextBlock Text="Most powerful electric &#10;engine with 20-26 seatings" 
+                                       Foreground="#5E69C9" 
+                                       FontSize="12" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 -1 0 0"/>
+                            <TextBlock Text="Search" 
+                                       FontSize="21" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 3 0 0"/>
                         </StackPanel>
                     </Button>
-                    <Button Click="PowEngineAxels_Click" x:Name="Button5" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20,235,0,0" Grid.Row="1">
+                    
+                    <Button Click="PowEngineAxels_Click" 
+                            x:Name="Button5" Style="{StaticResource PannelButton}" 
+                            VerticalAlignment="Top" 
+                            Margin="-20,235,0,0" 
+                            Grid.Row="1">
+                        
                         <StackPanel Margin="65 0 0 0">
-                            <TextBlock Text="Engine power more than&#10;average, >4 axles" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
-                            <TextBlock Text="Search" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
+                            <TextBlock Text="Engine power more than&#10;average, >4 axles" 
+                                       Foreground="#5E69C9" 
+                                       FontSize="12" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 -1 0 0"/>
+                            <TextBlock Text="Search" 
+                                       FontSize="21" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 3 0 0"/>
                         </StackPanel>
                     </Button>
-                    <Button Click="DoorFloorPasangers_Click" x:Name="Button6" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="-20,301,0,0" Grid.Row="1">
+                    
+                    <Button Click="DoorFloorPasangers_Click" 
+                            x:Name="Button6" 
+                            Style="{StaticResource PannelButton}" 
+                            VerticalAlignment="Top" 
+                            Margin="-20,301,0,0" 
+                            Grid.Row="1">
+                        
                         <StackPanel Margin="65 0 0 0">
-                            <TextBlock Text="Low floor, >4 doors and &#10;>40places" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
-                            <TextBlock Text="Search" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
+                            <TextBlock Text="Low floor, >4 doors and &#10;>40places" 
+                                       Foreground="#5E69C9" 
+                                       FontSize="12" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 -1 0 0"/>
+                            <TextBlock Text="Search" 
+                                       FontSize="21" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 3 0 0"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Click="OpenFromFile_Click" x:Name="Button2new" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="220,37,0,0" Grid.Row="1">
+                    
+                    
+                    
+                    <Button Click="OpenFromFile_Click" 
+                            x:Name="Button2new" 
+                            Style="{StaticResource PannelButton}" 
+                            VerticalAlignment="Top" 
+                            Margin="220,37,0,0" 
+                            Grid.Row="1">
+                        
                         <StackPanel Margin="65 0 0 0">
-                            <TextBlock Text="Open table from file" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
-                            <TextBlock Text="Open" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
+                            <TextBlock Text="Open table from file" 
+                                       Foreground="#5E69C9" 
+                                       FontSize="12" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 -1 0 0"/>
+                            <TextBlock Text="Open" 
+                                       FontSize="21" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 3 0 0"/>
                         </StackPanel>
                     </Button>
-                    <Button Click="SaveToFile_Click" x:Name="Button3new" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="220,103,0,0" Grid.Row="1">
+                    
+                    <Button Click="SaveToFile_Click" 
+                            x:Name="Button3new" 
+                            Style="{StaticResource PannelButton}" 
+                            VerticalAlignment="Top" 
+                            Margin="220,103,0,0" 
+                            Grid.Row="1">
+                        
                         <StackPanel Margin="65 0 0 0">
-                            <TextBlock Text="Save table to file" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
-                            <TextBlock Text="Save" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
+                            <TextBlock Text="Save table to file" 
+                                       Foreground="#5E69C9" 
+                                       FontSize="12" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 -1 0 0"/>
+                            <TextBlock Text="Save" 
+                                       FontSize="21" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 3 0 0"/>
                         </StackPanel>
                     </Button>
-                    <Button Click="PrintButton_Click" x:Name="Button4new" Style="{StaticResource PannelButton}" VerticalAlignment="Top" Margin="220,169,0,0" Grid.Row="1">
+                    
+                    <Button Click="PrintButton_Click" 
+                            x:Name="Button4new" 
+                            Style="{StaticResource PannelButton}" 
+                            VerticalAlignment="Top" 
+                            Margin="220,169,0,0" 
+                            Grid.Row="1">
+                        
                         <StackPanel Margin="65 0 0 0">
-                            <TextBlock Text="Print table" Foreground="#5E69C9" FontSize="12" FontFamily="gilroy" Margin="0 -1 0 0"/>
-                            <TextBlock Text="Print" FontSize="21" FontFamily="gilroy" Margin="0 3 0 0"/>
+                            <TextBlock Text="Print table" 
+                                       Foreground="#5E69C9" 
+                                       FontSize="12" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 -1 0 0"/>
+                            <TextBlock Text="Print" 
+                                       FontSize="21" 
+                                       FontFamily="gilroy" 
+                                       Margin="0 3 0 0"/>
                         </StackPanel>
                     </Button>
                 </Grid>
+                
                 <Grid.Effect>
-                    <DropShadowEffect Color="#DBDBDB" Direction="-200" ShadowDepth="5" BlurRadius="50" Opacity="0.4"/>
+                    <DropShadowEffect Color="#DBDBDB" 
+                                      Direction="-200" 
+                                      ShadowDepth="5" 
+                                      BlurRadius="50" 
+                                      Opacity="0.4"/>
                 </Grid.Effect>
             </Grid>
+           
             <!--Table-->
-            <Grid Grid.Column="2" Grid.RowSpan="2" Background="#E9ECF1">
+            <Grid Grid.Column="2" 
+                  Grid.RowSpan="2" 
+                  Background="#E9ECF1">
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Width="780" Height="30" Background="#E9ECF1" Margin="0 30 0 0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Text="Brand" FontFamily="gilroy" FontSize="18" Margin="60 5 0 0"/>
-                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-515 0 0 0"/>
-                    <TextBlock Text="Engine" FontFamily="gilroy" FontSize="18" Margin="154 5 0 0"/>
-                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-325 0 0 0"/>
-                    <TextBlock Text="Power" FontFamily="gilroy" FontSize="18" Margin="245 5 0 0"/>
-                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-160 0 0 0"/>
-                    <TextBlock Text="Axles" FontFamily="gilroy" FontSize="18" Margin="326 5 0 0"/>
-                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="-15 0 0 0"/>
-                    <TextBlock Text="Places" FontFamily="gilroy" FontSize="18" Margin="396 5 0 0"/>
-                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="145 0 0 0"/>
-                    <TextBlock Text="Seating" FontFamily="gilroy" FontSize="18" Margin="468 5 0 0"/>
-                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="295 0 0 0"/>
-                    <TextBlock Text="Doors" FontFamily="gilroy" FontSize="18" Margin="550 5 0 0"/>
-                    <Rectangle Width="1" Height="20" Fill="#B8BEE3" Margin="440 0 0 0"/>
-                    <TextBlock Text="Low" FontFamily="gilroy" FontSize="18" Margin="621 5 0 0"/>
+
+                <!--Hrader for table-->
+                <Grid Grid.Row="0" 
+                      Width="780" 
+                      Height="30" 
+                      Background="#E9ECF1" 
+                      Margin="0 30 0 0" 
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Center">
+
+
+                    <TextBlock Text="Brand" 
+                               FontFamily="gilroy" 
+                               FontSize="18" 
+                               Margin="60 5 0 0"/>
+                    <Rectangle Width="1" 
+                               Height="20" 
+                               Fill="#B8BEE3" 
+                               Margin="-515 0 0 0"/>
+
+                    <TextBlock Text="Engine" 
+                               FontFamily="gilroy" 
+                               FontSize="18" 
+                               Margin="154 5 0 0"/>
+                    <Rectangle Width="1" 
+                               Height="20" 
+                               Fill="#B8BEE3" 
+                               Margin="-325 0 0 0"/>
+
+                    <TextBlock Text="Power" 
+                               FontFamily="gilroy" 
+                               FontSize="18" 
+                               Margin="245 5 0 0"/>
+                    <Rectangle Width="1" 
+                               Height="20" 
+                               Fill="#B8BEE3" 
+                               Margin="-160 0 0 0"/>
+
+                    <TextBlock Text="Axles" 
+                               FontFamily="gilroy" 
+                               FontSize="18" 
+                               Margin="326 5 0 0"/>
+                    <Rectangle Width="1" 
+                               Height="20" 
+                               Fill="#B8BEE3" 
+                               Margin="-15 0 0 0"/>
+
+                    <TextBlock Text="Places" 
+                               FontFamily="gilroy" 
+                               FontSize="18" 
+                               Margin="396 5 0 0"/>
+                    <Rectangle Width="1" 
+                               Height="20" 
+                               Fill="#B8BEE3" 
+                               Margin="145 0 0 0"/>
+
+                    <TextBlock Text="Seating" 
+                               FontFamily="gilroy" 
+                               FontSize="18" 
+                               Margin="468 5 0 0"/>
+                    <Rectangle Width="1" 
+                               Height="20" 
+                               Fill="#B8BEE3" 
+                               Margin="295 0 0 0"/>
+
+                    <TextBlock Text="Doors" 
+                               FontFamily="gilroy" 
+                               FontSize="18" 
+                               Margin="550 5 0 0"/>
+                    <Rectangle Width="1" 
+                               Height="20" 
+                               Fill="#B8BEE3" 
+                               Margin="440 0 0 0"/>
+
+                    <TextBlock Text="Low" 
+                               FontFamily="gilroy" 
+                               FontSize="18" 
+                               Margin="621 5 0 0"/>
+
+
                     <Grid.Effect>
-                        <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader x:Name="Neuro"
-                            BorderRadius="25" BlurRadius="5" OffsetX="10" OffsetY="10" SpreadRadius="-1"
-                            PrimaryColor="#D3DBE6" SecondaryColor="#F4F7FC" Inset="0" />
+                        <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader 
+                            x:Name="Neuro"
+                            BorderRadius="25" 
+                            BlurRadius="5" 
+                            OffsetX="10" 
+                            OffsetY="10" 
+                            SpreadRadius="-1"
+                            PrimaryColor="#D3DBE6" 
+                            SecondaryColor="#F4F7FC" 
+                            Inset="0" />
                     </Grid.Effect>
+
                 </Grid>
+
+                <!--Table-->
                 <Grid Grid.Row="2">
-                    <DataGrid x:Name="table" HeadersVisibility="None" VerticalScrollBarVisibility="Disabled" Padding="0 5 0 0" HorizontalScrollBarVisibility="Disabled" AutoGenerateColumns="False" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"  Background="#E9ECF1" Width="780" Height="490" BorderBrush="Transparent" Margin="0 10 0 0" VerticalAlignment="Top" HorizontalAlignment="Center" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False">
+                    <DataGrid x:Name="table" 
+                              HeadersVisibility="None" 
+                              VerticalScrollBarVisibility="Disabled" 
+                              Padding="0 5 0 0" 
+                              HorizontalScrollBarVisibility="Disabled" 
+                              AutoGenerateColumns="False" 
+                              Style="{DynamicResource DataGridStyle1}" 
+                              CellStyle="{DynamicResource DataGridCellStyle1}" 
+                              ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"  
+                              Background="#E9ECF1" 
+                              Width="780" 
+                              Height="490" 
+                              BorderBrush="Transparent" 
+                              Margin="0 10 0 0" 
+                              VerticalAlignment="Top" 
+                              HorizontalAlignment="Center" 
+                              CanUserReorderColumns="False" 
+                              CanUserSortColumns="False" 
+                              CanUserResizeColumns="False">
+
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="#" IsReadOnly="True" Width="45">
+
+                            <DataGridTemplateColumn Header="#" 
+                                                    IsReadOnly="True" 
+                                                    Width="45">
+
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel>
-                                            <TextBlock Text="{Binding Number}" Foreground="#5E69C9" FontWeight="Medium" Margin=" 0 4 0 0 " Padding="0 0 0 5"/>
+                                            <TextBlock Text="{Binding Number}" 
+                                                       Foreground="#5E69C9" 
+                                                       FontWeight="Medium" 
+                                                       Margin=" 0 4 0 0 " 
+                                                       Padding="0 0 0 5"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
+
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Brand" IsReadOnly="True" Binding="{Binding Brand}" Width="89"/>
-                            <DataGridTextColumn Header="Engine" IsReadOnly="True" Binding="{Binding EngineType}" Width="94" />
-                            <DataGridTextColumn Header="Power" IsReadOnly="True" Binding="{Binding EnginePower}" Width="83"/>
-                            <DataGridTextColumn Header="Axles" IsReadOnly="True" Binding="{Binding NumberOfAxles}" Width="72"/>
-                            <DataGridTextColumn Header="Places" IsReadOnly="True" Binding="{Binding PassengerCapacity}" Width="80" />
-                            <DataGridTextColumn Header="Seating" IsReadOnly="True" Binding="{Binding SeatingCapacity}" Width="76" />
-                            <DataGridTextColumn Header="Doors" IsReadOnly="True" Binding="{Binding NumberOfDoors}" Width="70"/>
-                            <DataGridTextColumn Header="Low" IsReadOnly="True" Binding="{Binding LowFloor}" Width="61" />
-                            <DataGridTemplateColumn Header="Operations" IsReadOnly="True">
+
+                            <DataGridTextColumn Header="Brand" 
+                                                IsReadOnly="True" 
+                                                Binding="{Binding Brand}" 
+                                                Width="89"/>
+
+                            <DataGridTextColumn Header="Engine" 
+                                                IsReadOnly="True" 
+                                                Binding="{Binding EngineType}" 
+                                                Width="94" />
+
+                            <DataGridTextColumn Header="Power" 
+                                                IsReadOnly="True" 
+                                                Binding="{Binding EnginePower}" 
+                                                Width="83"/>
+
+                            <DataGridTextColumn Header="Axles" 
+                                                IsReadOnly="True" 
+                                                Binding="{Binding NumberOfAxles}" 
+                                                Width="72"/>
+
+                            <DataGridTextColumn Header="Places" 
+                                                IsReadOnly="True" 
+                                                Binding="{Binding PassengerCapacity}" 
+                                                Width="80" />
+
+                            <DataGridTextColumn Header="Seating" 
+                                                IsReadOnly="True" 
+                                                Binding="{Binding SeatingCapacity}" 
+                                                Width="76" />
+
+                            <DataGridTextColumn Header="Doors" 
+                                                IsReadOnly="True" 
+                                                Binding="{Binding NumberOfDoors}" 
+                                                Width="70"/>
+
+                            <DataGridTextColumn Header="Low" 
+                                                IsReadOnly="True" 
+                                                Binding="{Binding LowFloor}" 
+                                                Width="61" />
+
+                            <DataGridTemplateColumn Header="Operations" 
+                                                    IsReadOnly="True">
+
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel>
-                                            <Button Style="{StaticResource EditButton}" Margin="0 0 15 0">
+                                            <Button Style="{StaticResource EditButton}" 
+                                                    Margin="0 0 15 0">
                                             </Button>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
+
                             </DataGridTemplateColumn>
 
                         </DataGrid.Columns>
+
                     </DataGrid>
+
                     <Grid.Effect>
-                        <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader x:Name="Neuro2"
-                          BorderRadius="25" BlurRadius="5" OffsetX="10" OffsetY="10" SpreadRadius="-1"
-                          PrimaryColor="#D3DBE6" SecondaryColor="#F4F7FC" Inset="0" />
+                        <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader 
+                            x:Name="Neuro2"
+                            BorderRadius="25" 
+                            BlurRadius="5" 
+                            OffsetX="10" 
+                            OffsetY="10" 
+                            SpreadRadius="-1"
+                            PrimaryColor="#D3DBE6" 
+                            SecondaryColor="#F4F7FC" 
+                            Inset="0" />
                     </Grid.Effect>
                 </Grid>
-                <Grid Grid.Row="1" Margin="0 10 0 0">
-                    <Button Style="{StaticResource AddButton}" Click="AddNewTransportButton_Click">
+
+                <!--Add new transport, Pagination-->
+                <Grid Grid.Row="1" 
+                      Margin="0 10 0 0">
+
+                    <!--Add new transport-->
+                    <Button Style="{StaticResource AddButton}" 
+                            Click="AddNewTransportButton_Click">
+
                         <Border>
                             <StackPanel>
-                                <TextBlock Text="Add new transport" FontFamily="gilroy" Margin="24 0 0 0"/>
+                                <TextBlock Text="Add new transport" 
+                                           FontFamily="gilroy" 
+                                           Margin="24 0 0 0"/>
                             </StackPanel>
                         </Border>
                     </Button>
-                    <Button Opacity="0" x:Name="backToMain" IsHitTestVisible="False" Click="BackToMainButton_Click" Style="{StaticResource NoHoverButtonStyle}" Width="185" Height="28" HorizontalAlignment="Left" Margin="40 7 0 0" Background="Transparent" BorderBrush="Transparent">
-                        <Border>
-                            <StackPanel>
-                                <TextBlock Foreground="#5E69C9" Text="← Back to main table" FontFamily="gilroy" FontSize="16" Margin="10 5 0 0"/>
-                            </StackPanel>
-                        </Border>
-                    </Button>
-                    <Border Width="130" Height="20" HorizontalAlignment="Right" Margin="0 0 60 0">
+
+                    <!--Pagination-->
+                    <Border Width="130" 
+                            Height="20" 
+                            HorizontalAlignment="Right" 
+                            Margin="0 0 60 0">
+
                         <StackPanel x:Name="PaginationStackPanel">
-                            <Button x:Name="prevBut" Click="PreviousPage_Click" Style="{StaticResource MovePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="0 0 0 0">
-                                <Icon:PackIconMaterial Kind="ChevronLeft" Height="12" Margin="2 0 0 0"/>
+
+                            <Button x:Name="prevBut" 
+                                    Click="PreviousPage_Click" 
+                                    Style="{StaticResource MovePageButton}" 
+                                    Height="20" 
+                                    Width="20" 
+                                    HorizontalAlignment="Left" Margin="0 0 0 0">
+
+                                <Icon:PackIconMaterial Kind="ChevronLeft" 
+                                                       Height="12" 
+                                                       Margin="2 0 0 0"/>
+
                             </Button>
-                            <Button x:Name="firstBut" Style="{StaticResource ActivePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="22 -20 0 0">
-                                <TextBlock x:Name="firstButTxt" Text="1" FontFamily="gilroy" FontSize="17" FontWeight="Medium"/>
+
+                            <Button x:Name="firstBut" 
+                                    Style="{StaticResource ActivePageButton}" 
+                                    Height="20" 
+                                    Width="20" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="22 -20 0 0">
+
+                                <TextBlock x:Name="firstButTxt" 
+                                           Text="1" 
+                                           FontFamily="gilroy" 
+                                           FontSize="17" 
+                                           FontWeight="Medium"/>
                             </Button>
-                            <Button x:Name="secBut" Style="{StaticResource UnActivePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="44 -20 0 0">
-                                <TextBlock x:Name="secButTxt" Text="2" FontFamily="gilroy" FontSize="17" FontWeight="Medium"/>
+
+                            <Button x:Name="secBut" 
+                                    Style="{StaticResource UnActivePageButton}" 
+                                    Height="20" 
+                                    Width="20" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="44 -20 0 0">
+
+                                <TextBlock x:Name="secButTxt" 
+                                           Text="2" 
+                                           FontFamily="gilroy" 
+                                           FontSize="17" 
+                                           FontWeight="Medium"/>
                             </Button>
-                            <Button x:Name="dotBut" Style="{StaticResource UnActivePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="65 -20 0 0">
-                                <TextBlock x:Name="dotButTxt" Text="....." FontFamily="gilroy" FontSize="17" FontWeight="Medium"/>
+
+                            <Button x:Name="dotBut" 
+                                    Style="{StaticResource UnActivePageButton}" 
+                                    Height="20" 
+                                    Width="20" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="65 -20 0 0">
+
+                                <TextBlock x:Name="dotButTxt" 
+                                           Text="....." 
+                                           FontFamily="gilroy" 
+                                           FontSize="17" 
+                                           FontWeight="Medium"/>
                             </Button>
-                            <Button x:Name="lastBut" Style="{StaticResource UnActivePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="88 -20 0 0">
-                                <TextBlock x:Name="lastButTxt" Text="10" FontFamily="gilroy" FontSize="17" FontWeight="Medium" />
+
+                            <Button x:Name="lastBut" 
+                                    Style="{StaticResource UnActivePageButton}" 
+                                    Height="20" 
+                                    Width="20" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="88 -20 0 0">
+
+                                <TextBlock x:Name="lastButTxt" 
+                                           Text="10" 
+                                           FontFamily="gilroy" 
+                                           FontSize="17" 
+                                           FontWeight="Medium" />
                             </Button>
-                            <Button x:Name="nextBut" Click="NextPage_Click" Style="{StaticResource MovePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="110 -20 0 0">
-                                <Icon:PackIconMaterial Kind="ChevronRight" Height="12" Margin="2 0 0 0"/>
+
+                            <Button x:Name="nextBut" 
+                                    Click="NextPage_Click" 
+                                    Style="{StaticResource MovePageButton}" 
+                                    Height="20" 
+                                    Width="20" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="110 -20 0 0">
+
+                                <Icon:PackIconMaterial Kind="ChevronRight" 
+                                                       Height="12" 
+                                                       Margin="2 0 0 0"/>
                             </Button>
 
                         </StackPanel>
                     </Border>
+
+                    <!--Back to main table-->
+                    <Button Opacity="0" 
+                            x:Name="backToMain" 
+                            IsHitTestVisible="False" 
+                            Click="BackToMainButton_Click" 
+                            Style="{StaticResource NoHoverButtonStyle}" 
+                            Width="185" 
+                            Height="28" 
+                            HorizontalAlignment="Left" 
+                            Margin="40 7 0 0" 
+                            Background="Transparent" 
+                            BorderBrush="Transparent">
+
+                        <Border>
+                            <StackPanel>
+                                <TextBlock Foreground="#5E69C9" 
+                                           Text="← Back to main table" 
+                                           FontFamily="gilroy" 
+                                           FontSize="16" 
+                                           Margin="10 5 0 0"/>
+                            </StackPanel>
+                        </Border>
+                    </Button>
                 </Grid>
 
             </Grid>
-            <Grid IsHitTestVisible="False" x:Name="addEditTransport" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="0" Grid.Row="0" Width="1080" Height="720" Opacity="0">
-                <Button Background="#000000" Opacity="0.3" Click="exitAddEditButton_Click" Style="{StaticResource NoHoverButtonStyle}"/>
-                <Border Background="#F2F3F8" Height="350" Width="600" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 -50 0 0">
+
+            <!--Add new transport window-->
+            <Grid IsHitTestVisible="False" 
+                  x:Name="addEditTransport" 
+                  Grid.ColumnSpan="2" 
+                  Grid.RowSpan="2" 
+                  Grid.Column="0" 
+                  Grid.Row="0" 
+                  Width="1080" 
+                  Height="720" 
+                  Opacity="0">
+                
+                <!--Exit button-->
+                <Button Background="#000000" 
+                        Opacity="0.3" 
+                        Click="exitAddEditButton_Click" 
+                        Style="{StaticResource NoHoverButtonStyle}"/>
+                
+                <!--Window-->
+                <Border Background="#F2F3F8" 
+                        Height="350" 
+                        Width="600" 
+                        CornerRadius="20" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
+                        Margin="0 -50 0 0">
+                    
                     <Grid>
-                        <TextBlock Text="Add new transport" FontFamily="Gilroy" FontSize="18" FontWeight="Regular" Margin="30,20,0,0" Foreground="#525252"/>
-                        <Button Style="{StaticResource NoHoverButtonStyle}" Click="exitAddEditButton_Click" Width="20" Height="20" Margin="540 -298 0 0">
+                        <TextBlock Text="Add new transport" 
+                                   FontFamily="Gilroy" 
+                                   FontSize="18" 
+                                   FontWeight="Regular" 
+                                   Margin="30,20,0,0" 
+                                   Foreground="#525252"/>
+                        
+                        <Button Style="{StaticResource NoHoverButtonStyle}" 
+                                Click="exitAddEditButton_Click" 
+                                Width="20" 
+                                Height="20" 
+                                Margin="540 -298 0 0">
+                            
                             <Border>
                                 <StackPanel>
-                                    <Icon:PackIconRadixIcons Foreground="#525252" Kind="Cross2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 4 0 0" Width="12" Height="12"/>
+                                    <Icon:PackIconRadixIcons Foreground="#525252" 
+                                                             Kind="Cross2" 
+                                                             HorizontalAlignment="Center" 
+                                                             VerticalAlignment="Center" 
+                                                             Margin="0 4 0 0" 
+                                                             Width="12" 
+                                                             Height="12"/>
                                 </StackPanel>
                             </Border>
                         </Button>
                         
-                        <TextBlock Text="Brand" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="65,70,0,0" Foreground="#000000"/>
-                        <TextBox PreviewTextInput="TextBox_PreviewTextInput1" Name="BrandBox" Style="{StaticResource BrandBoxStyle}" />
-                        <TextBlock x:Name="BrandTxt" Text="Enter brand name" Foreground="#525252" FontFamily="gilroy" FontSize="16" Margin="80,104,0,0" IsHitTestVisible="False" Visibility="{Binding ElementName=BrandBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
+                        <!--Brand input-->
+                        <TextBlock Text="Brand" 
+                                   FontFamily="Gilroy" 
+                                   FontSize="19" 
+                                   FontWeight="Regular" 
+                                   Margin="65,70,0,0" 
+                                   Foreground="#000000"/>
+                        
+                        <TextBox PreviewTextInput="TextBox_PreviewTextInputLetters" 
+                                 Name="BrandBox" 
+                                 Style="{StaticResource BrandBoxStyle}" />
+                        
+                        <TextBlock x:Name="BrandTxt" 
+                                   Text="Enter brand name" 
+                                   Foreground="#525252" 
+                                   FontFamily="gilroy" 
+                                   FontSize="16" 
+                                   Margin="80,104,0,0" 
+                                   IsHitTestVisible="False" 
+                                   Visibility="{Binding ElementName=BrandBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
 
-                        <TextBlock Text="Power" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="65,150,0,0" Foreground="#000000"/>
-                        <TextBox PreviewTextInput="TextBox_PreviewTextInput" Name="PowerBox" Style="{StaticResource PowerBoxStyle}" />
-                        <TextBlock x:Name="PowerTxt" Text="Engine power" Foreground="#525252" FontFamily="gilroy" FontSize="16" Margin="152,154,0,0" IsHitTestVisible="False" Visibility="{Binding ElementName=PowerBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
+                        
 
-                        <TextBlock Text="Places" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="65,200,0,0" Foreground="#000000"/>
-                        <TextBox PreviewTextInput="TextBox_PreviewTextInput" Name="PlacesBox" Style="{StaticResource PlacesBoxStyle}" />
-                        <TextBlock x:Name="PlacesTxt" Text="Number places" Foreground="#525252" FontFamily="gilroy" FontSize="16" Margin="152,204,0,0" IsHitTestVisible="False" Visibility="{Binding ElementName=PlacesBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
+                        <!--Power input-->
+                        <TextBlock Text="Power" 
+                                   FontFamily="Gilroy" 
+                                   FontSize="19" 
+                                   FontWeight="Regular" 
+                                   Margin="65,150,0,0" 
+                                   Foreground="#000000"/>
+                        
+                        <TextBox PreviewTextInput="TextBox_PreviewTextInputNumbers" 
+                                 Name="PowerBox" 
+                                 Style="{StaticResource PowerBoxStyle}" />
+                        
+                        <TextBlock x:Name="PowerTxt" 
+                                   Text="Engine power" 
+                                   Foreground="#525252" 
+                                   FontFamily="gilroy" 
+                                   FontSize="16" 
+                                   Margin="152,154,0,0" 
+                                   IsHitTestVisible="False" 
+                                   Visibility="{Binding ElementName=PowerBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
 
-                        <TextBlock Text="Axles" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="65,249,0,0" Foreground="#000000"/>
-                        <StackPanel x:Name="AxlesPusMinusStackPanel" Margin="140 250 0 0">
-                            <Button x:Name="AxlesminusOneBut" Click="AxlesminusOneBut_Click" Style="{StaticResource AxlesButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="0 0 0 0">
-                                <Icon:PackIconMaterial Kind="ChevronLeft" Height="12" Margin="2 0 0 0"/>
+                        
+                        <!--Places input-->
+                        <TextBlock Text="Places" 
+                                   FontFamily="Gilroy" 
+                                   FontSize="19" 
+                                   FontWeight="Regular" 
+                                   Margin="65,200,0,0" 
+                                   Foreground="#000000"/>
+                        
+                        <TextBox PreviewTextInput="TextBox_PreviewTextInputNumbers" 
+                                 Name="PlacesBox" 
+                                 Style="{StaticResource PlacesBoxStyle}" />
+                        
+                        <TextBlock x:Name="PlacesTxt" 
+                                   Text="Number places" 
+                                   Foreground="#525252" 
+                                   FontFamily="gilroy" 
+                                   FontSize="16" 
+                                   Margin="152,204,0,0" 
+                                   IsHitTestVisible="False" 
+                                   Visibility="{Binding ElementName=PlacesBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
+
+                        <!--Axels input-->
+                        <TextBlock Text="Axles" 
+                                   FontFamily="Gilroy" 
+                                   FontSize="19" 
+                                   FontWeight="Regular" 
+                                   Margin="65,249,0,0" 
+                                   Foreground="#000000"/>
+                        
+                        <StackPanel x:Name="AxlesPusMinusStackPanel" 
+                                    Margin="140 250 0 0">
+                            
+                            <Button x:Name="AxlesminusOneBut" 
+                                    Click="AxlesminusOneBut_Click" 
+                                    Style="{StaticResource AxlesButton}" 
+                                    Height="20" 
+                                    Width="20" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="0 0 0 0">
+                                <Icon:PackIconMaterial Kind="ChevronLeft" 
+                                                       Height="12" 
+                                                       Margin="2 0 0 0"/>
                             </Button>
-                            <Button x:Name="AxlescountBut" Style="{StaticResource ActivePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="22 -20 0 0">
-                                <TextBlock x:Name="AxlescounttButTxt" Text="1" FontFamily="gilroy" FontSize="17" FontWeight="Medium"/>
+                            
+                            <Button x:Name="AxlescountBut" 
+                                    Style="{StaticResource ActivePageButton}" 
+                                    Height="20" 
+                                    Width="20" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="22 -20 0 0">
+                                <TextBlock x:Name="AxlescounttButTxt" 
+                                           Text="1" 
+                                           FontFamily="gilroy" 
+                                           FontSize="17" 
+                                           FontWeight="Medium"/>
                             </Button>
-                            <Button x:Name="AxlesplusOneBut" Click="AxlesplusOneBut_Click"  Style="{StaticResource AxlesButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="44 -20 0 0">
-                                <Icon:PackIconMaterial Kind="ChevronRight" Height="12" Margin="2 0 0 0"/>
+                            
+                            <Button x:Name="AxlesplusOneBut" 
+                                    Click="AxlesplusOneBut_Click"  
+                                    Style="{StaticResource AxlesButton}" 
+                                    Height="20" 
+                                    Width="20" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="44 -20 0 0">
+                                <Icon:PackIconMaterial Kind="ChevronRight" 
+                                                       Height="12" 
+                                                       Margin="2 0 0 0"/>
                             </Button>
                         </StackPanel>
 
 
+                        <!--Engine type input-->
+                        <TextBlock Text="Engine" 
+                                   FontFamily="Gilroy" 
+                                   FontSize="19" 
+                                   FontWeight="Regular" 
+                                   Margin="320,70,0,0" 
+                                   Foreground="#000000"/>
+                        
+                        <ComboBox FontFamily="gilroy" 
+                                  Name="EngineBox" 
+                                  Padding="15 0 0 0" 
+                                  FontSize="16" 
+                                  Style="{DynamicResource ComboBoxStyle}" 
+                                  ItemContainerStyle="{DynamicResource ComboBoxItemContainerStyle}"  
+                                  Width="215" 
+                                  Height="30" 
+                                  Margin="320 98 0 0" 
+                                  HorizontalAlignment="Left" 
+                                  VerticalAlignment="Top" 
+                                  VerticalContentAlignment="Center"/>
+                        
+                        <TextBlock x:Name="EngineTxt" 
+                                   Text="Select engine type" 
+                                   Foreground="#525252" 
+                                   FontFamily="gilroy" 
+                                   FontSize="16" 
+                                   Margin="335,104,0,0" 
+                                   IsHitTestVisible="False" 
+                                   Visibility="{Binding ElementName=EngineBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
 
-                        <TextBlock Text="Engine" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="320,70,0,0" Foreground="#000000"/>
-                            <ComboBox FontFamily="gilroy" Name="EngineBox" Padding="15 0 0 0" FontSize="16" Style="{DynamicResource ComboBoxStyle}" ItemContainerStyle="{DynamicResource ComboBoxItemContainerStyle}"  Width="215" Height="30" Margin="320 98 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-                        <TextBlock x:Name="EngineTxt" Text="Select engine type" Foreground="#525252" FontFamily="gilroy" FontSize="16" Margin="335,104,0,0" IsHitTestVisible="False" Visibility="{Binding ElementName=EngineBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
-
-                        <TextBlock Text="Doors" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="320,149,0,0" Foreground="#000000"/>
-                        <StackPanel x:Name="DoorsPusMinusStackPanel" Margin="395 150 0 0">
-                            <Button x:Name="DoorsminusOneBut" Click="DoorsminusOneBut_Click" Style="{StaticResource AxlesButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="0 0 0 0">
-                                <Icon:PackIconMaterial Kind="ChevronLeft" Height="12" Margin="2 0 0 0"/>
+                        <!--Doors input-->
+                        <TextBlock Text="Doors" 
+                                   FontFamily="Gilroy" 
+                                   FontSize="19" 
+                                   FontWeight="Regular" 
+                                   Margin="320,149,0,0" 
+                                   Foreground="#000000"/>
+                        
+                        <StackPanel x:Name="DoorsPusMinusStackPanel" 
+                                    Margin="395 150 0 0">
+                            
+                            <Button x:Name="DoorsminusOneBut" 
+                                    Click="DoorsminusOneBut_Click" 
+                                    Style="{StaticResource AxlesButton}" 
+                                    Height="20" 
+                                    Width="20" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="0 0 0 0">
+                                
+                                <Icon:PackIconMaterial Kind="ChevronLeft" 
+                                                       Height="12" 
+                                                       Margin="2 0 0 0"/>
                             </Button>
-                            <Button x:Name="DoorscountBut" Style="{StaticResource ActivePageButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="22 -20 0 0">
-                                <TextBlock x:Name="DoorscounttButTxt" Text="1" FontFamily="gilroy" FontSize="17" FontWeight="Medium"/>
+                            
+                            <Button x:Name="DoorscountBut" 
+                                    Style="{StaticResource ActivePageButton}" 
+                                    Height="20" 
+                                    Width="20" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="22 -20 0 0">
+                                
+                                <TextBlock x:Name="DoorscounttButTxt" 
+                                           Text="1" 
+                                           FontFamily="gilroy" 
+                                           FontSize="17" 
+                                           FontWeight="Medium"/>
                             </Button>
-                            <Button x:Name="DoorsplusOneBut" Click="DoorsplusOneBut_Click" Style="{StaticResource AxlesButton}" Height="20" Width="20" HorizontalAlignment="Left" Margin="44 -20 0 0">
-                                <Icon:PackIconMaterial Kind="ChevronRight" Height="12" Margin="2 0 0 0"/>
+                            
+                            <Button x:Name="DoorsplusOneBut" 
+                                    Click="DoorsplusOneBut_Click" 
+                                    Style="{StaticResource AxlesButton}" 
+                                    Height="20" 
+                                    Width="20" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="44 -20 0 0">
+                                
+                                <Icon:PackIconMaterial Kind="ChevronRight" 
+                                                       Height="12" 
+                                                       Margin="2 0 0 0"/>
                             </Button>
+                        
                         </StackPanel>
 
-                        <TextBlock Text="Sitting" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="320,200,0,0" Foreground="#000000"/>
-                        <TextBox PreviewTextInput="TextBox_PreviewTextInput" Name="SittingBox" Style="{StaticResource SittingBoxStyle}" />
-                        <TextBlock x:Name="SittingTxt" Text="Number sitting" Foreground="#525252" FontFamily="gilroy" FontSize="16" Margin="407,204,0,0" IsHitTestVisible="False" Visibility="{Binding ElementName=SittingBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
+                        
+                        <!--Seating input-->
+                        <TextBlock Text="Seating" 
+                                   FontFamily="Gilroy" 
+                                   FontSize="19" 
+                                   FontWeight="Regular" 
+                                   Margin="320,200,0,0" 
+                                   Foreground="#000000"/>
+                        
+                        <TextBox PreviewTextInput="TextBox_PreviewTextInputNumbers" 
+                                 Name="SittingBox" 
+                                 Style="{StaticResource SittingBoxStyle}" />
+                        
+                        <TextBlock x:Name="SittingTxt" 
+                                   Text="Number sitting" 
+                                   Foreground="#525252" 
+                                   FontFamily="gilroy" 
+                                   FontSize="16" 
+                                   Margin="407,204,0,0" 
+                                   IsHitTestVisible="False" 
+                                   Visibility="{Binding ElementName=SittingBox, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
 
-                        <TextBlock Text="Low floors" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="320,249,0,0" Foreground="#000000"/>
-                        <CheckBox x:Name="YesCheckBox" Style="{DynamicResource CheckBoxStyle1}" Margin="430 253 0 0" Checked="CheckBox_Checked"/>
-                        <TextBlock  Text="yes" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="450,249,0,0" Foreground="#000000"/>
-                        <CheckBox x:Name="NoCheckBox" Style="{DynamicResource CheckBoxStyle1}" Margin="490 253 0 0" Checked="CheckBox_Checked"/>
-                        <TextBlock  Text="no" FontFamily="Gilroy" FontSize="19" FontWeight="Regular" Margin="510,249,0,0" Foreground="#000000"/>
+                        
+                        <!--Low floors input-->
+                        <TextBlock Text="Low floors" 
+                                   FontFamily="Gilroy" 
+                                   FontSize="19" 
+                                   FontWeight="Regular" 
+                                   Margin="320,249,0,0" 
+                                   Foreground="#000000"/>
+                        
+                        <CheckBox x:Name="YesCheckBox" 
+                                  Style="{DynamicResource CheckBoxStyle1}" 
+                                  Margin="430 253 0 0" 
+                                  Checked="CheckBox_Checked"/>
+                        
+                        <TextBlock  Text="yes" 
+                                    FontFamily="Gilroy" 
+                                    FontSize="19" 
+                                    FontWeight="Regular" 
+                                    Margin="450,249,0,0" 
+                                    Foreground="#000000"/>
+                        
+                        <CheckBox x:Name="NoCheckBox" 
+                                  Style="{DynamicResource CheckBoxStyle1}" 
+                                  Margin="490 253 0 0" 
+                                  Checked="CheckBox_Checked"/>
+                        
+                        <TextBlock  Text="no" 
+                                    FontFamily="Gilroy" 
+                                    FontSize="19" 
+                                    FontWeight="Regular" 
+                                    Margin="510,249,0,0" 
+                                    Foreground="#000000"/>
 
-
-                        <Button x:Name="addnew" Style="{StaticResource AddNewButton}" Click="AddNewButton_Click">
+                        <!--Add button-->
+                        <Button x:Name="addnew" 
+                                Style="{StaticResource AddNewButton}" 
+                                Click="AddNewButton_Click">
+                            
                             <Border>
                                 <StackPanel>
-                                    <TextBlock x:Name="addnewtxt" Text="Add" FontFamily="gilroy" Margin="46 0 0 0"/>
+                                    <TextBlock x:Name="addnewtxt" 
+                                               Text="Add" 
+                                               FontFamily="gilroy" 
+                                               Margin="46 0 0 0"/>
                                 </StackPanel>
+                                
                             </Border>
                         </Button>
-                        <Button Style="{StaticResource CancelNewButton}" Click="exitAddEditButton_Click">
+                        
+                        <!--Cancel button-->
+                        <Button Style="{StaticResource CancelNewButton}" 
+                                    Click="exitAddEditButton_Click">
+                            
                             <Border>
                                 <StackPanel>
-                                    <TextBlock Text="Cancel" FontFamily="gilroy" Margin="34 0 0 0"/>
+                                    <TextBlock Text="Cancel" 
+                                               FontFamily="gilroy" 
+                                               Margin="34 0 0 0"/>
                                 </StackPanel>
                             </Border>
                         </Button>

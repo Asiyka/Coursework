@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace kursova
 {
-    /// <summary>
-    /// Interaction logic for MessageOutput.xaml
-    /// </summary>
     public partial class MessageOutput : Window
     {
 

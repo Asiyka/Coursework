@@ -32,50 +32,45 @@ namespace kursova
 
     public partial class MainWindow : Window
     {
-        private ObservableCollection<PublicTransport> AllTransports = new ObservableCollection<PublicTransport>();
-        private ObservableCollection<PublicTransport> currentPageTransports;
-        private ObservableCollection<PublicTransport> currentData = new ObservableCollection<PublicTransport>();
+        //Items that can be displayed per page
         private int itemsPerPage = 8;
+        //Index of current page
         private int currentPage = 0;
-        private List<PublicTransport> formatedData = new List<PublicTransport>();
+
+        //Collection that conatins original data read from file
+        private ObservableCollection<PublicTransport> AllTransports = new ObservableCollection<PublicTransport>();
+
+        //Data that currently represented(data from search etc.)
+        private ObservableCollection<PublicTransport> currentData = new ObservableCollection<PublicTransport>();
+        //Copy of data to save original indexation to have ability to modify elements in original data
         ObservableCollection<PublicTransport> dataCopy;
 
+        //Data currently represented in table
+        private ObservableCollection<PublicTransport> currentPageTransports;
+        
+        //Function to get enum description to show name of engine rather than number in enum
         static string GetEnumDescription(Enum value)
         {
             var field = value.GetType().GetField(value.ToString());
             var attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
             return attribute == null ? value.ToString() : attribute.Description;
         }
+        
         public MainWindow()
         {
             InitializeComponent();
 
+            //ComboBox initialization
             foreach (Engines engine in Enum.GetValues(typeof(Engines)))
             {
                 EngineBox.Items.Add(GetEnumDescription(engine));
             }
 
-            //for (int i = 0; i < 12; i++)
-            //{
-            //    PublicTransport newTransport = new PublicTransport
-            //    {
-            //        Brand = "Electron",
-            //        EngineType = 0,
-            //        EnginePower = 854,
-            //        NumberOfAxles = 10,
-            //        PassengerCapacity = 255,
-            //        SeatingCapacity = 56,
-            //        NumberOfDoors = 10,
-            //        LowFloor = "Yes"
-            //    };
-
-            //    newTransport.Number = (AllTransports.Count + 1);
-
-            //    AllTransports.Add(newTransport);
-            //}
-
+            //Show empty table
             currentData = AllTransports;
             ShowPage(0);
+
+            //Row loader to apply specific style for rows
             table.LoadingRow += (sender, e) =>
             {
                 DataGridRow row = e.Row as DataGridRow;
@@ -101,22 +96,33 @@ namespace kursova
             };
         }
 
+        //Calculate number of total pages
         private int TotalPages()
         {
             return (int)Math.Ceiling((double)currentData.Count / itemsPerPage);
         }
 
+        //Function to show specific page
         private void ShowPage(int page)
         {
 
             currentPage = page;
+
             int startIndex = currentPage * itemsPerPage;
             int endIndex = Math.Min(startIndex + itemsPerPage, currentData.Count);
+
             currentPageTransports = new ObservableCollection<PublicTransport>(currentData.Skip(startIndex).Take(itemsPerPage));
 
             table.ItemsSource = currentPageTransports;
+
             UpdatePageButtons();
         }
+        
+        
+
+        //------Pagination--------------------
+
+        //Function to adjust pagination
         private void UpdatePageButtons()
         {
             int totalPageCount = TotalPages();
@@ -238,9 +244,11 @@ namespace kursova
 
                 }
             }
+            
             UpdateButtonStyles();
         }
 
+        //Function to change style in pagination for active page
         private void UpdateButtonStyles()
         {
             int totalPageCount = TotalPages();
@@ -248,31 +256,29 @@ namespace kursova
             for (int i = 1; i < 5; i++)
             {
                 var button = (Button)PaginationStackPanel.Children[i];
+
                 var textBlock = (TextBlock)button.Content;
+
                 if (textBlock.Text != ".....")
                 {
                     int buttonPage = int.Parse(textBlock.Text);
                     if (buttonPage >= 1 && buttonPage <= totalPageCount)
                     {
-
-
                         button.Style = (buttonPage == currentPage + 1) ? FindResource("ActivePageButton") as Style : FindResource("UnActivePageButton") as Style;
-
                     }
                 }
             }
         }
 
+        //Move to next page
         private void NextPage_Click(object sender, RoutedEventArgs e)
         {
-            int nextPage = currentPage + 1;
-            int totalPageCount = (int)Math.Ceiling((double)AllTransports.Count / itemsPerPage);
-
-            if (nextPage < totalPageCount)
+            if (currentPage + 1 < TotalPages())
             {
-                ShowPage(nextPage);
+                ShowPage(currentPage + 1);
             }
         }
+        //Move to prev page
         private void PreviousPage_Click(object sender, RoutedEventArgs e)
         {
             if (currentPage > 0)
@@ -280,103 +286,11 @@ namespace kursova
                 ShowPage(currentPage - 1);
             }
         }
-        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            PublicTransport itemToDelete = (sender as Button).Tag as PublicTransport;
 
-            if (itemToDelete != null)
-            {
-                DataGridRow row = table.ItemContainerGenerator.ContainerFromItem(itemToDelete) as DataGridRow;
 
-                if (row != null)
-                {
-                    var storyboard = new Storyboard();
 
-                    var opacityAnimation = new DoubleAnimation
-                    {
-                        To = 0,
-                        Duration = TimeSpan.FromSeconds(0.3),
-                    };
-
-                    Storyboard.SetTarget(opacityAnimation, row);
-                    Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(UIElement.OpacityProperty));
-                    storyboard.Children.Add(opacityAnimation);
-
-                    storyboard.Begin();
-
-                    await Task.Delay(300);
-
-                    currentData.Remove(itemToDelete);
-
-                    AllTransports.RemoveAt(dataCopy[itemToDelete.Number-1].Number-1);
-
-                    for (int i = 0; i < AllTransports.Count; i++)
-                    {
-                        AllTransports[i].Number = (i + 1);
-                    }
-                    for (int i = 0; i < currentData.Count; i++)
-                    {
-                        currentData[i].Number = (i + 1);
-                    }
-
-                    CollectionViewSource.GetDefaultView(table.ItemsSource).Refresh();
-                    ShowPage(currentPage);
-                }
-            }
-        }
-
-        private void AddNewTransportButton_Click(object sender, RoutedEventArgs e)
-        {
-            addnewtxt.Text = "Add";
-            addnewtxt.Margin = new Thickness(46, 0, 0, 0);
-
-            {
-                BrandTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
-                BrandBox.Style = FindResource("BrandBoxStyle") as Style;
-
-                EngineTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
-                EngineBox.Style = FindResource("ComboBoxStyle") as Style;
-
-                PowerTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
-                PowerBox.Style = FindResource("PowerBoxStyle") as Style;
-
-                PlacesTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
-                PlacesBox.Style = FindResource("PlacesBoxStyle") as Style;
-
-                SittingTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
-                SittingBox.Style = FindResource("SittingBoxStyle") as Style;
-
-                YesCheckBox.Style = FindResource("CheckBoxStyle1") as Style;
-                NoCheckBox.Style = FindResource("CheckBoxStyle1") as Style;
-            }
-            {
-                BrandBox.Text = string.Empty;
-                EngineBox.Text = string.Empty;
-                PowerBox.Text = string.Empty;
-                DoorscounttButTxt.Text = "1";
-                PlacesBox.Text = string.Empty;
-                AxlescounttButTxt.Text = "1";
-                SittingBox.Text = string.Empty;
-                YesCheckBox.IsChecked = false;
-                NoCheckBox.IsChecked = false;
-
-            }
-            DoubleAnimation fadeInAnimation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.2));
-            addEditTransport.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
-
-            addEditTransport.IsHitTestVisible = true;
-        }
-
-        private void exitAddEditButton_Click(object sender, RoutedEventArgs e)
-        {
-            DoubleAnimation fadeOutAnimation = new DoubleAnimation(0, TimeSpan.FromSeconds(0.2));
-            addEditTransport.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
-
-            addEditTransport.IsHitTestVisible = false;
-        }
-
+        //Animation that is played when button "Table" is pressed
         private bool isAnimationInProgress = false;
-
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
             if (!isAnimationInProgress)
@@ -533,53 +447,182 @@ namespace kursova
             }
         }
 
-        private void DoorsminusOneBut_Click(object sender, RoutedEventArgs e)
+
+
+        //-------Add/Edit element------------------
+
+        int currentEditing = -1;
+
+        //Button to open window to add new element
+        private void AddNewTransportButton_Click(object sender, RoutedEventArgs e)
         {
-            if (int.Parse(DoorscounttButTxt.Text) > 0)
+            addnewtxt.Text = "Add";
+            addnewtxt.Margin = new Thickness(46, 0, 0, 0);
+
             {
-                DoorscounttButTxt.Text = (int.Parse(DoorscounttButTxt.Text) - 1).ToString();
+                BrandTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                BrandBox.Style = FindResource("BrandBoxStyle") as Style;
+
+                EngineTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                EngineBox.Style = FindResource("ComboBoxStyle") as Style;
+
+                PowerTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                PowerBox.Style = FindResource("PowerBoxStyle") as Style;
+
+                PlacesTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                PlacesBox.Style = FindResource("PlacesBoxStyle") as Style;
+
+                SittingTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                SittingBox.Style = FindResource("SittingBoxStyle") as Style;
+
+                YesCheckBox.Style = FindResource("CheckBoxStyle1") as Style;
+                NoCheckBox.Style = FindResource("CheckBoxStyle1") as Style;
             }
-        }
 
-        private void DoorsplusOneBut_Click(object sender, RoutedEventArgs e)
-        {
-            DoorscounttButTxt.Text = (int.Parse(DoorscounttButTxt.Text) + 1).ToString();
-        }
-
-        private void AxlesminusOneBut_Click(object sender, RoutedEventArgs e)
-        {
-            if (int.Parse(AxlescounttButTxt.Text) > 1)
             {
-                AxlescounttButTxt.Text = (int.Parse(AxlescounttButTxt.Text) - 1).ToString();
+                BrandBox.Text = string.Empty;
+                EngineBox.Text = string.Empty;
+                PowerBox.Text = string.Empty;
+                DoorscounttButTxt.Text = "1";
+                PlacesBox.Text = string.Empty;
+                AxlescounttButTxt.Text = "1";
+                SittingBox.Text = string.Empty;
+                YesCheckBox.IsChecked = false;
+                NoCheckBox.IsChecked = false;
+
             }
+
+            DoubleAnimation fadeInAnimation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.2));
+            addEditTransport.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+
+            addEditTransport.IsHitTestVisible = true;
         }
 
-        private void AxlesplusOneBut_Click(object sender, RoutedEventArgs e)
+        //Button to open window to edit selected element
+        private void EditEdit_Click(object sender, RoutedEventArgs e)
         {
-            AxlescounttButTxt.Text = (int.Parse(AxlescounttButTxt.Text) + 1).ToString();
 
-        }
-
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            CheckBox checkBox = sender as CheckBox;
-
-            if (checkBox != null)
+            addnewtxt.Text = "Apply";
+            addnewtxt.Margin = new Thickness(42, 0, 0, 0);
+            
             {
-                if (checkBox == YesCheckBox && NoCheckBox.IsChecked == true)
+                BrandTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                BrandBox.Style = FindResource("BrandBoxStyle") as Style;
+
+                EngineTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                EngineBox.Style = FindResource("ComboBoxStyle") as Style;
+
+                PowerTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                PowerBox.Style = FindResource("PowerBoxStyle") as Style;
+
+                PlacesTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                PlacesBox.Style = FindResource("PlacesBoxStyle") as Style;
+
+                SittingTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
+                SittingBox.Style = FindResource("SittingBoxStyle") as Style;
+
+                YesCheckBox.Style = FindResource("CheckBoxStyle1") as Style;
+                NoCheckBox.Style = FindResource("CheckBoxStyle1") as Style;
+            }
+
+            PublicTransport itemToEdit = (sender as Button).Tag as PublicTransport;
+
+            {
+
+                BrandBox.Text = itemToEdit.Brand;
+                EngineBox.Text = GetEnumDescription(itemToEdit.EngineType);
+                PowerBox.Text = itemToEdit.EnginePower.ToString();
+                DoorscounttButTxt.Text = itemToEdit.NumberOfDoors.ToString();
+                PlacesBox.Text = itemToEdit.PassengerCapacity.ToString();
+                AxlescounttButTxt.Text = itemToEdit.NumberOfAxles.ToString();
+                SittingBox.Text = itemToEdit.SeatingCapacity.ToString();
+                
+                if (itemToEdit.LowFloor == "Yes")
                 {
-                    NoCheckBox.IsChecked = false;
+                    YesCheckBox.IsChecked = true;
                 }
-                else if (checkBox == NoCheckBox && YesCheckBox.IsChecked == true)
+                else
                 {
-                    YesCheckBox.IsChecked = false;
+                    NoCheckBox.IsChecked = true;
+                }
+
+            }
+            currentEditing = itemToEdit.Number;
+
+            DoubleAnimation fadeInAnimation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.2));
+            addEditTransport.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+
+            addEditTransport.IsHitTestVisible = true;
+
+        }
+        //Button to delete selected element
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            PublicTransport itemToDelete = (sender as Button).Tag as PublicTransport;
+
+            if (itemToDelete != null)
+            {
+                DataGridRow row = table.ItemContainerGenerator.ContainerFromItem(itemToDelete) as DataGridRow;
+
+                if (row != null)
+                {
+                    var storyboard = new Storyboard();
+
+                    var opacityAnimation = new DoubleAnimation
+                    {
+                        To = 0,
+                        Duration = TimeSpan.FromSeconds(0.3),
+                    };
+
+                    Storyboard.SetTarget(opacityAnimation, row);
+                    Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(UIElement.OpacityProperty));
+                    storyboard.Children.Add(opacityAnimation);
+
+                    storyboard.Begin();
+
+                    await Task.Delay(300);
+
+                    if(currentData == AllTransports)
+                    {
+                        AllTransports.RemoveAt((dataCopy[itemToDelete.Number - 1].Number) - 1);
+                    }
+                    else
+                    {
+                        currentData.Remove(itemToDelete);
+                        AllTransports.RemoveAt((dataCopy[itemToDelete.Number - 1].Number) - 1);
+                    }
+
+
+                    for (int i = 0; i < AllTransports.Count; i++)
+                    {
+                        AllTransports[i].Number = (i + 1);
+                    }
+
+                    for (int i = 0; i < currentData.Count; i++)
+                    {
+                        currentData[i].Number = (i + 1);
+                    }
+
+                    CollectionViewSource.GetDefaultView(table.ItemsSource).Refresh();
+                    ShowPage(currentPage);
                 }
             }
         }
 
+        //Button to exit add/edit window
+        private void exitAddEditButton_Click(object sender, RoutedEventArgs e)
+        {
+            DoubleAnimation fadeOutAnimation = new DoubleAnimation(0, TimeSpan.FromSeconds(0.2));
+            addEditTransport.BeginAnimation(UIElement.OpacityProperty, fadeOutAnimation);
+
+            addEditTransport.IsHitTestVisible = false;
+        }
+
+        //Button to apply add/edit
         private void AddNewButton_Click(object sender, RoutedEventArgs e)
 
         {
+            //to add new
             if (addnewtxt.Text == "Add")
             {
                 PublicTransport transport = new PublicTransport();
@@ -619,7 +662,19 @@ namespace kursova
                 }
                 else
                 {
-                    transport.EnginePower = int.Parse(PowerBox.Text);
+                    try
+                    {
+                        transport.EnginePower = int.Parse(PowerBox.Text);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageOutput messageOutput = new MessageOutput($"Error reading engine power.\nValue was either too large or too small.");
+                        if (messageOutput.ShowDialog() == true)
+                        {
+                        }
+                        allFieldsEntered = false;
+
+                    }
                 }
                 if (string.IsNullOrEmpty(PlacesBox.Text))
                 {
@@ -630,7 +685,19 @@ namespace kursova
                 }
                 else
                 {
-                    transport.PassengerCapacity = int.Parse(PlacesBox.Text);
+                    try
+                    {
+                        transport.PassengerCapacity = int.Parse(PlacesBox.Text);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageOutput messageOutput = new MessageOutput($"Error reading number of places.\nValue was either too large or too small.");
+                        if (messageOutput.ShowDialog() == true)
+                        {
+                        }
+                        allFieldsEntered = false;
+
+                    }
                 }
                 if (string.IsNullOrEmpty(SittingBox.Text))
                 {
@@ -641,7 +708,19 @@ namespace kursova
                 }
                 else
                 {
-                    transport.SeatingCapacity = int.Parse(SittingBox.Text);
+                    try
+                    {
+                        transport.SeatingCapacity = int.Parse(SittingBox.Text);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageOutput messageOutput = new MessageOutput($"Error reading seating capacity.\nValue was either too large or too small.");
+                        if (messageOutput.ShowDialog() == true)
+                        {
+                        }
+                        allFieldsEntered = false;
+
+                    }
                 }
 
                 transport.NumberOfDoors = int.Parse(DoorscounttButTxt.Text);
@@ -666,6 +745,7 @@ namespace kursova
 
                     AllTransports.Add(transport);
                     currentData = AllTransports;
+                    dataCopy = new ObservableCollection<PublicTransport>(AllTransports);
                     ShowPage(currentPage);
 
                     DoubleAnimation fadeOutAnimation = new DoubleAnimation(0, TimeSpan.FromSeconds(0.2));
@@ -680,6 +760,7 @@ namespace kursova
                 }
 
             }
+            //to edit current
             else if (addnewtxt.Text == "Apply")
             {
                 PublicTransport transport = new PublicTransport();
@@ -721,7 +802,19 @@ namespace kursova
                 }
                 else
                 {
-                    transport.EnginePower = int.Parse(PowerBox.Text);
+                    try
+                    {
+                        transport.EnginePower = int.Parse(PowerBox.Text);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageOutput messageOutput = new MessageOutput($"Error reading engine power.\nValue was either too large or too small.");
+                        if (messageOutput.ShowDialog() == true)
+                        {
+                        }
+                        allFieldsEntered = false;
+
+                    }
                 }
                 if (string.IsNullOrEmpty(PlacesBox.Text))
                 {
@@ -732,7 +825,19 @@ namespace kursova
                 }
                 else
                 {
-                    transport.PassengerCapacity = int.Parse(PlacesBox.Text);
+                    try
+                    {
+                        transport.PassengerCapacity = int.Parse(PlacesBox.Text);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageOutput messageOutput = new MessageOutput($"Error reading number of places.\nValue was either too large or too small.");
+                        if (messageOutput.ShowDialog() == true)
+                        {
+                        }
+                        allFieldsEntered = false;
+
+                    }
                 }
                 if (string.IsNullOrEmpty(SittingBox.Text))
                 {
@@ -743,7 +848,19 @@ namespace kursova
                 }
                 else
                 {
-                    transport.SeatingCapacity = int.Parse(SittingBox.Text);
+                    try
+                    {
+                        transport.SeatingCapacity = int.Parse(SittingBox.Text);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageOutput messageOutput = new MessageOutput($"Error reading seating capacity.\nValue was either too large or too small.");
+                        if (messageOutput.ShowDialog() == true)
+                        {
+                        }
+                        allFieldsEntered = false;
+
+                    }
                 }
 
                 transport.NumberOfDoors = int.Parse(DoorscounttButTxt.Text);
@@ -763,14 +880,14 @@ namespace kursova
 
                 if (allFieldsEntered)
                 {
-                    if(currentData != AllTransports)
+                    if (currentData != AllTransports)
                     {
                         transport.Number = dataCopy[currentEditing - 1].Number - 1;
                         AllTransports[dataCopy[currentEditing - 1].Number - 1] = transport;
                     }
 
                     transport.Number = (currentEditing);
-                    
+
                     currentData[currentEditing - 1] = transport;
 
                     ShowPage(currentPage);
@@ -785,7 +902,68 @@ namespace kursova
 
         }
 
-        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+
+
+        //---------Control elemenets in window add/edit
+
+        //Doors count add/substract
+        private void DoorsminusOneBut_Click(object sender, RoutedEventArgs e)
+        {
+            if (int.Parse(DoorscounttButTxt.Text) > 0)
+            {
+                DoorscounttButTxt.Text = (int.Parse(DoorscounttButTxt.Text) - 1).ToString();
+            }
+        }
+
+        private void DoorsplusOneBut_Click(object sender, RoutedEventArgs e)
+        {
+            if(int.Parse(DoorscounttButTxt.Text) < 99)
+            {
+                DoorscounttButTxt.Text = (int.Parse(DoorscounttButTxt.Text) + 1).ToString();
+            }
+        }
+
+        //Axels count add/substract
+        private void AxlesminusOneBut_Click(object sender, RoutedEventArgs e)
+        {
+            if (int.Parse(AxlescounttButTxt.Text) > 1)
+            {
+                AxlescounttButTxt.Text = (int.Parse(AxlescounttButTxt.Text) - 1).ToString();
+            }
+        }
+
+        private void AxlesplusOneBut_Click(object sender, RoutedEventArgs e)
+        {
+            if(int.Parse(AxlescounttButTxt.Text) < 99)
+            {
+                AxlescounttButTxt.Text = (int.Parse(AxlescounttButTxt.Text) + 1).ToString();
+            }
+        }
+
+
+
+        //---------Checkers in window add/edit
+
+        //Only one checkbox can be checked at time
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+
+            if (checkBox != null)
+            {
+                if (checkBox == YesCheckBox && NoCheckBox.IsChecked == true)
+                {
+                    NoCheckBox.IsChecked = false;
+                }
+                else if (checkBox == NoCheckBox && YesCheckBox.IsChecked == true)
+                {
+                    YesCheckBox.IsChecked = false;
+                }
+            }
+        }
+
+        //Check if only positive integer numbers are entered
+        private void TextBox_PreviewTextInputNumbers(object sender, TextCompositionEventArgs e)
         {
             if (!IsNumericInput(e.Text))
             {
@@ -796,79 +974,71 @@ namespace kursova
         {
             Regex regex = new Regex(@"^[+-]?[1-9]\d*$|^0$");
 
+            //check if starts with zeros
             bool hasLeadingZeros = text.Length > 1 && text[0] == '0';
 
             return regex.IsMatch(text) && !hasLeadingZeros;
         }
 
-        private void TextBox_PreviewTextInput1(object sender, TextCompositionEventArgs e)
+        //Check if only alphabetic letters are entered
+        private void TextBox_PreviewTextInputLetters(object sender, TextCompositionEventArgs e)
         {
-            if (!IsAlphabeticNumericInput(e.Text))
+            if (!IsAlphabeticInput(e.Text))
             {
                 e.Handled = true;
             }
         }
-        private bool IsAlphabeticNumericInput(string text)
+        private bool IsAlphabeticInput(string text)
         {
             Regex regex = new Regex("^[a-zA-Z-]+$");
 
             return regex.IsMatch(text);
         }
 
-        int currentEditing = -1;
-        private void EditEdit_Click(object sender, RoutedEventArgs e)
+        //Button to search specified element
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            addnewtxt.Text = "Apply";
-            addnewtxt.Margin = new Thickness(42, 0, 0, 0);
+            string searchTerm = searchBox.Text.ToLower();
+
+            if (string.IsNullOrWhiteSpace(searchTerm))
             {
-                BrandTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
-                BrandBox.Style = FindResource("BrandBoxStyle") as Style;
-
-                EngineTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
-                EngineBox.Style = FindResource("ComboBoxStyle") as Style;
-
-                PowerTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
-                PowerBox.Style = FindResource("PowerBoxStyle") as Style;
-
-                PlacesTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
-                PlacesBox.Style = FindResource("PlacesBoxStyle") as Style;
-
-                SittingTxt.Foreground = (Brush)new BrushConverter().ConvertFromString("#525252");
-                SittingBox.Style = FindResource("SittingBoxStyle") as Style;
-
-                YesCheckBox.Style = FindResource("CheckBoxStyle1") as Style;
-                NoCheckBox.Style = FindResource("CheckBoxStyle1") as Style;
+                table.ItemsSource = AllTransports;
             }
-
-            PublicTransport itemToEdit = (sender as Button).Tag as PublicTransport;
-
+            else
             {
+                var formatedData = AllTransports.Where(item =>
+                    item.Brand.ToLower().Contains(searchTerm) ||
+                    GetEnumDescription(item.EngineType).ToLower().Contains(searchTerm) ||
+                    item.Number.ToString().Contains(searchTerm) ||
+                    item.EnginePower.ToString().Contains(searchTerm) ||
+                    item.NumberOfAxles.ToString().Contains(searchTerm) ||
+                    item.NumberOfDoors.ToString().Contains(searchTerm) ||
+                    item.SeatingCapacity.ToString().Contains(searchTerm) ||
+                    item.PassengerCapacity.ToString().Contains(searchTerm)
+                ).ToList();
 
-                BrandBox.Text = itemToEdit.Brand;
-                EngineBox.Text = GetEnumDescription(itemToEdit.EngineType);
-                PowerBox.Text = itemToEdit.EnginePower.ToString();
-                DoorscounttButTxt.Text = itemToEdit.NumberOfDoors.ToString();
-                PlacesBox.Text = itemToEdit.PassengerCapacity.ToString();
-                AxlescounttButTxt.Text = itemToEdit.NumberOfAxles.ToString();
-                SittingBox.Text = itemToEdit.SeatingCapacity.ToString();
-                if (itemToEdit.LowFloor == "Yes")
+                table.ItemsSource = formatedData;
+
+                ObservableCollection<PublicTransport> data = new ObservableCollection<PublicTransport>(formatedData);
+                formatedData.Clear();
+
+                dataCopy = new ObservableCollection<PublicTransport>(data.Select(original => new PublicTransport(original)));
+                
+                for (int i = 0; i < data.Count; i++)
                 {
-                    YesCheckBox.IsChecked = true;
-                }
-                else
-                {
-                    NoCheckBox.IsChecked = true;
+                    data[i].Number = (i + 1);
                 }
 
+                currentData = data;
+                ShowPage(0);
             }
-            currentEditing = itemToEdit.Number;
             DoubleAnimation fadeInAnimation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.2));
-            addEditTransport.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
+            backToMain.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
 
-            addEditTransport.IsHitTestVisible = true;
-
+            backToMain.IsHitTestVisible = true;
         }
 
+        //Button to return to original table
         private void BackToMainButton_Click(object sender, RoutedEventArgs e)
         {
             currentData = AllTransports;
@@ -883,50 +1053,19 @@ namespace kursova
 
             searchBox.Text = null;
             backToMain.IsHitTestVisible = false;
-            if(formatedData.Count != 0)
-                formatedData.Clear();
+            
         }
 
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            string searchTerm = searchBox.Text.ToLower();
 
-            if (string.IsNullOrWhiteSpace(searchTerm))
-            {
-                table.ItemsSource = AllTransports;
-            }
-            else
-            {
-                formatedData = AllTransports.Where(item =>
-                item.Brand.ToLower().Contains(searchTerm) ||
-                GetEnumDescription(item.EngineType).ToLower().Contains(searchTerm) ||
-                item.Number.ToString().Contains(searchTerm) ||
-                item.EnginePower.ToString().Contains(searchTerm) ||
-                item.NumberOfAxles.ToString().Contains(searchTerm) ||
-                item.NumberOfDoors.ToString().Contains(searchTerm) ||
-                item.SeatingCapacity.ToString().Contains(searchTerm) ||
-                item.PassengerCapacity.ToString().Contains(searchTerm)
-            ).ToList();
-                table.ItemsSource = formatedData;
-                ObservableCollection<PublicTransport> data = new ObservableCollection<PublicTransport>(formatedData);
-                dataCopy = new ObservableCollection<PublicTransport>(data.Select(original => new PublicTransport(original)));
-                for (int i = 0; i < data.Count; i++)
-                {
-                    data[i].Number = (i + 1);
-                }
-                currentData = data;
-                ShowPage(0);
-            }
-            DoubleAnimation fadeInAnimation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.2));
-            backToMain.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
 
-            backToMain.IsHitTestVisible = true;
-        }
+        //------Task Functions------------------------
 
+        //Function to read data from file
         private void OpenFromFile_Click(object sender, RoutedEventArgs e)
         {
             currentData.Clear();
             AllTransports.Clear();
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
@@ -938,6 +1077,11 @@ namespace kursova
                 {
                     using (StreamReader reader = new StreamReader(filePath))
                     {
+                        if (reader.Peek() == -1)
+                        {
+                            throw new Exception("The file is empty.");
+                        }
+
                         reader.ReadLine();
                         reader.ReadLine();
 
@@ -949,6 +1093,7 @@ namespace kursova
                             AllTransports.Add(transport);
                         }
                     }
+
                     dataCopy = new ObservableCollection<PublicTransport>(AllTransports);
                     currentData = AllTransports;
                     ShowPage(0);
@@ -959,12 +1104,12 @@ namespace kursova
                     MessageOutput messageOutput = new MessageOutput($"Error reading file.\n{ex.Message}");
                     if (messageOutput.ShowDialog() == true)
                     {
-
                     }
                 }
             }
-
         }
+        
+        //Function to save to file
         private void SaveToFile_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -1023,6 +1168,8 @@ namespace kursova
                 }
             }
         }
+        
+        //Function to print data
         private void PrintButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -1078,6 +1225,7 @@ namespace kursova
             }
         }
 
+        //Function to create printable document
         private FlowDocument CreateFlowDocument()
         {
             FlowDocument flowDocument = new FlowDocument();
@@ -1191,7 +1339,7 @@ namespace kursova
             return flowDocument;
         }
 
-
+        //Button event to call sort function
         private void Sort_Click(object sender, RoutedEventArgs e)
 
         {
@@ -1215,6 +1363,7 @@ namespace kursova
             
         }
 
+        //Button event to call calculate average function
         private void EngineAverage_Click(object sender, RoutedEventArgs e)
         {
             if(currentData.Count > 0)
@@ -1235,12 +1384,21 @@ namespace kursova
                 }
             }
         }
+        
+        //Button event to call function to search: most powerful electric engine with 20-26 seating places
         private void PowEngineSeating_Click(object sender, RoutedEventArgs e)
         {
             if(currentData.Count > 0)
             {
                 currentData = MostPowerfulEngineAndSpecificSeating(currentData);
+
+                for (int i = 0; i < currentData.Count; i++)
+                {
+                    currentData[i].Number = i + 1;
+                }
+
                 ShowPage(0);
+
                 DoubleAnimation fadeInAnimation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.2));
                 backToMain.BeginAnimation(UIElement.OpacityProperty, fadeInAnimation);
 
@@ -1256,16 +1414,20 @@ namespace kursova
             }
             
         }
+
+        //Button event to call function to search: engine power more than average with more than 4 axels
 
         private void PowEngineAxels_Click(object sender, RoutedEventArgs e)
         {
             if(currentData.Count > 0)
             {
                 currentData = PowerfulAverageAndSpecificAxels(currentData);
+
                 for (int i = 0; i < currentData.Count; i++)
                 {
                     currentData[i].Number = (i + 1);
                 }
+
                 ShowPage(0);
 
                 DoubleAnimation fadeInAnimation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.2));
@@ -1283,15 +1445,19 @@ namespace kursova
             }
         }
 
+        //Button event to call function to search: more than 4 doors, more than 40 pasanger capacity with low floor
+
         private void DoorFloorPasangers_Click(object sender, RoutedEventArgs e)
         {
             if(currentData.Count > 0)
             {
                 currentData = DoorsFloorPlaces(currentData);
+
                 for (int i = 0; i < currentData.Count; i++)
                 {
                     currentData[i].Number = (i + 1);
                 }
+
                 ShowPage(0);
 
                 DoubleAnimation fadeInAnimation = new DoubleAnimation(1, TimeSpan.FromSeconds(0.2));
@@ -1310,8 +1476,10 @@ namespace kursova
             
         }
 
-        //------Task Functions------------------------
 
+
+
+        //Shell Sort
         private ObservableCollection<PublicTransport> ShellSort(ObservableCollection<PublicTransport> toSort)
         {
             int n = toSort.Count;
@@ -1351,19 +1519,25 @@ namespace kursova
             }
         }
 
+        //Engine Average
         private double CalculateEnginePowerAverage(ObservableCollection<PublicTransport> toCalculate)
         {
             int sum = 0;
+
             foreach(var item in toCalculate){
                 sum += item.EnginePower;
             }
+
             return sum/toCalculate.Count;
         }
+        
+        //Search: most powerful electric engine with 20-26 seating places
         private ObservableCollection<PublicTransport> MostPowerfulEngineAndSpecificSeating(ObservableCollection<PublicTransport> toSearch)
         {
             try
             {
                 List<PublicTransport> mostPowerfulElectricList = new List<PublicTransport>();
+                
                 double maxEnginePower = double.MinValue;
 
                 for (int i = 0; i < toSearch.Count; i++)
@@ -1384,11 +1558,6 @@ namespace kursova
 
                 dataCopy = new ObservableCollection<PublicTransport>(mostPowerfulElectricList.Select(transport => new PublicTransport(transport)));
 
-                for (int i = 0; i < mostPowerfulElectricList.Count; i++)
-                {
-                    mostPowerfulElectricList[i].Number = i + 1;
-                }
-
                 return new ObservableCollection<PublicTransport>(mostPowerfulElectricList);
             }
             catch (Exception ex)
@@ -1398,6 +1567,7 @@ namespace kursova
             }
         }
 
+        //Search: engine power more than average with more than 4 axels
         private ObservableCollection<PublicTransport> PowerfulAverageAndSpecificAxels(ObservableCollection<PublicTransport> toSearch)
         {
             try
@@ -1432,6 +1602,7 @@ namespace kursova
             }
         }
 
+        //Search: more than 4 doors, more than 40 pasanger capacity with low floor
         private ObservableCollection<PublicTransport> DoorsFloorPlaces(ObservableCollection<PublicTransport> toSearch)
         {
             try
@@ -1469,7 +1640,7 @@ namespace kursova
 
     }
         
-
+    //Class that show/hide help text in input boxes 
     public class StringToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
