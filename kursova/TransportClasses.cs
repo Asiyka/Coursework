@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 namespace kursova
 {
     //Enum for engine types
-    public enum Engines
+    enum Engines
     {
         [Description("Diesel")]
         Diesel,
@@ -24,11 +24,14 @@ namespace kursova
         Gas,
 
         [Description("Electric")]
-        Electric
+        Electric,
+
+        [Description("Hybrid")]
+        Hybrid
     }
 
     //abstract class Transport: Brand, EngineType, NumberOfAxels
-    abstract class TransportVehicle
+    abstract class CTransportVehicle
     {
         private string brand;
         private Engines engineType;
@@ -53,11 +56,11 @@ namespace kursova
             set { numberOfAxles = value; }
         }
 
-        public TransportVehicle()
+        public CTransportVehicle()
         {
         }
 
-        public TransportVehicle(string brand, 
+        public CTransportVehicle(string brand, 
                                 Engines engineType, 
                                 int numberOfAxles)
         {
@@ -66,7 +69,7 @@ namespace kursova
             NumberOfAxles = numberOfAxles;
         }
 
-        public TransportVehicle(TransportVehicle other)
+        public CTransportVehicle(CTransportVehicle other)
         {
             Brand = other.Brand;
             EngineType = other.EngineType;
@@ -74,7 +77,7 @@ namespace kursova
         }
     }
     //class inherited from TransportVehicle: Number, PassengerCapacity, SeatingCapacity, NumberOfDoors, EnginePower, LowFloor
-    class PublicTransport : TransportVehicle, IEquatable<PublicTransport>
+    class CPublicTransport : CTransportVehicle, IEquatable<CPublicTransport>
     {
         private int number;
         private int passengerCapacity;
@@ -120,11 +123,11 @@ namespace kursova
             set { lowFloor = value; }
         }
 
-        public PublicTransport()
+        public CPublicTransport()
         {
         }
 
-        public PublicTransport(string brand, 
+        public CPublicTransport(string brand, 
                                Engines engineType, 
                                int numberOfAxles, 
                                int passengerCapacity, 
@@ -141,7 +144,7 @@ namespace kursova
             LowFloor = lowFloor;
         }
 
-        public PublicTransport(PublicTransport other)
+        public CPublicTransport(CPublicTransport other)
             : base(other)
         {
             Number = other.Number;
@@ -155,7 +158,6 @@ namespace kursova
         //Read one transport from file. Format: Brand Engine Power Axels Places Seating Doors Low \n
         public void ReadFromFile(StreamReader reader)
         {
-
             try
             {
                 string line = reader.ReadLine();
@@ -173,6 +175,11 @@ namespace kursova
                     int doors = int.Parse(data[6].Trim());
                     string low = data[7].Trim();
 
+                    if (power < 0 || axles < 0 || places < 0 || seating < 0 || doors < 0)
+                    {
+                        throw new ArgumentException("Negative values are not allowed.");
+                    }
+
                     Brand = brand;
 
                     if (Enum.TryParse(engine, out Engines engineTypeEnum))
@@ -186,7 +193,6 @@ namespace kursova
                     SeatingCapacity = seating;
                     NumberOfDoors = doors;
                     LowFloor = low;
-
                 }
                 else
                 {
@@ -218,7 +224,7 @@ namespace kursova
         
 
         //----------Table Managmment---------------------
-        public bool Equals(PublicTransport other)
+        public bool Equals(CPublicTransport other)
         {
             if (other == null)
                 return false;
@@ -228,7 +234,7 @@ namespace kursova
 
         public override bool Equals(object obj)
         {
-            if (obj is PublicTransport other)
+            if (obj is CPublicTransport other)
                 return Equals(other);
             return false;
         }

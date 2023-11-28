@@ -60,7 +60,7 @@
                                            Margin="7 -5 0 10" 
                                            Opacity="1"/>
                                 
-                                <Button Click="EditEdit_Click" 
+                                <Button Click="OpenEditTransportButton_Click" 
                                         Tag="{Binding}" 
                                         x:Name="EditEdit" 
                                         Style="{StaticResource NoHoverButtonStyle}" 
@@ -257,7 +257,7 @@
                             VerticalAlignment="Top" 
                             Margin="-20 47 0 0" 
                             Grid.RowSpan="2" 
-                            Click="Button1_Click" 
+                            Click="onTableButton_Click" 
                             Opacity="1">
                         
                         <StackPanel Margin="65 0 0 0">
@@ -377,7 +377,7 @@
                             Grid.Row="1">
                         
                         <StackPanel Margin="65 0 0 0">
-                            <TextBlock Text="Low floor, >4 doors and &#10;>40places" 
+                            <TextBlock Text="Low floor, >4 doors and &#10;>40 places" 
                                        Foreground="#5E69C9" 
                                        FontSize="12" 
                                        FontFamily="gilroy" 
@@ -688,7 +688,7 @@
 
                     <!--Add new transport-->
                     <Button Style="{StaticResource AddButton}" 
-                            Click="AddNewTransportButton_Click">
+                            Click="OpenAddNewTransportButton_Click">
 
                         <Border>
                             <StackPanel>
@@ -796,7 +796,7 @@
                     <Button Opacity="0" 
                             x:Name="backToMain" 
                             IsHitTestVisible="False" 
-                            Click="BackToMainButton_Click" 
+                            Click="BackToMainTableButton_Click" 
                             Style="{StaticResource NoHoverButtonStyle}" 
                             Width="185" 
                             Height="28" 
@@ -950,7 +950,7 @@
                                     Margin="140 250 0 0">
                             
                             <Button x:Name="AxlesminusOneBut" 
-                                    Click="AxlesminusOneBut_Click" 
+                                    Click="AxlesminusOneButton_Click" 
                                     Style="{StaticResource AxlesButton}" 
                                     Height="20" 
                                     Width="20" 
@@ -975,7 +975,7 @@
                             </Button>
                             
                             <Button x:Name="AxlesplusOneBut" 
-                                    Click="AxlesplusOneBut_Click"  
+                                    Click="AxlesplusOneButton_Click"  
                                     Style="{StaticResource AxlesButton}" 
                                     Height="20" 
                                     Width="20" 
@@ -1030,7 +1030,7 @@
                                     Margin="395 150 0 0">
                             
                             <Button x:Name="DoorsminusOneBut" 
-                                    Click="DoorsminusOneBut_Click" 
+                                    Click="DoorsminusOneButton_Click" 
                                     Style="{StaticResource AxlesButton}" 
                                     Height="20" 
                                     Width="20" 
@@ -1057,7 +1057,7 @@
                             </Button>
                             
                             <Button x:Name="DoorsplusOneBut" 
-                                    Click="DoorsplusOneBut_Click" 
+                                    Click="DoorsplusOneButton_Click" 
                                     Style="{StaticResource AxlesButton}" 
                                     Height="20" 
                                     Width="20" 
@@ -1129,7 +1129,7 @@
                         <!--Add button-->
                         <Button x:Name="addnew" 
                                 Style="{StaticResource AddNewButton}" 
-                                Click="AddNewButton_Click">
+                                Click="AddEditTransportButton_Click">
                             
                             <Border>
                                 <StackPanel>
@@ -1155,6 +1155,102 @@
                             </Border>
                         </Button>
                     </Grid>
+                </Border>
+            </Grid>
+        
+            <!--Select sort order-->
+            <Grid Grid.ColumnSpan="2" 
+                  Grid.RowSpan="2" 
+                  Grid.Column="0" 
+                  Grid.Row="0"
+                  IsHitTestVisible="False"
+                  Opacity="0"
+                  x:Name="Order">
+                
+                <Border VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" 
+                    Background="#F2F3F8" 
+                    BorderBrush="Transparent"
+                    CornerRadius="20"
+                    Width="380"
+                    Height="170">
+
+                    <Grid>
+                        <!--Header-->
+                        <TextBlock Text="Sorting Order" 
+                                   FontFamily="Gilroy" 
+                                   FontSize="17" 
+                                   FontWeight="Regular" 
+                                   Margin="20,10,0,0" 
+                                   Foreground="#525252"/>
+
+                        <!--Exit button-->
+                        <Button Style="{StaticResource NoHoverButtonStyle}" 
+                                Click="ExitOrderButton_Click" 
+                                Width="15" 
+                                Height="15" 
+                                Margin="330 -125 0 0">
+
+                            <Border>
+                                <StackPanel>
+                                    <Icon:PackIconRadixIcons Foreground="#525252" 
+                                                             Kind="Cross2" 
+                                                             HorizontalAlignment="Center" 
+                                                             VerticalAlignment="Center" 
+                                                             Margin="0 0 0 0" 
+                                                             Width="12" 
+                                                             Height="12"/>
+                                </StackPanel>
+                            </Border>
+                        </Button>
+
+                        <CheckBox x:Name="increasingCheckBox" 
+                                  Style="{DynamicResource CheckBoxStyle1}" 
+                                  Margin="70 80 0 0" 
+                                  Checked="orderCheckBox_Checked"/>
+
+                        <TextBlock  Text="increasing" 
+                                    FontFamily="Gilroy" 
+                                    FontSize="19" 
+                                    FontWeight="Regular" 
+                                    Margin="90,75,0,0" 
+                                    Foreground="#000000"/>
+
+                        <CheckBox x:Name="decreasingCheckBox" 
+                                  Style="{DynamicResource CheckBoxStyle1}" 
+                                  Margin="200 80 0 0" 
+                                  Checked="orderCheckBox_Checked"/>
+
+                        <TextBlock  Text="decreasing" 
+                                    FontFamily="Gilroy" 
+                                    FontSize="19" 
+                                    FontWeight="Regular" 
+                                    Margin="220,75,0,0" 
+                                    Foreground="#000000"/>
+
+                        <!--Ok button-->
+                        <Button Style="{StaticResource CancelNewButton}" 
+                                Click="PerformSortButton_Click" 
+                                Margin="250 120 0 0" 
+                                Width="100" 
+                                Height="25" >
+
+                            <Border>
+                                <StackPanel>
+                                    <TextBlock Text="Ok" 
+                                               FontFamily="gilroy" 
+                                               Margin="40 0 0 0"/>
+                                </StackPanel>
+                            </Border>
+                        </Button>
+                    </Grid>
+
+                    <Border.Effect>
+                        <DropShadowEffect Color="#333" 
+                                          ShadowDepth="0" 
+                                          Opacity="0.15" 
+                                          BlurRadius="20"/>
+                    </Border.Effect>
                 </Border>
             </Grid>
         </Grid>
