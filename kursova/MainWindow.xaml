@@ -879,7 +879,7 @@
                                    FontWeight="Regular" 
                                    Margin="65,70,0,0" 
                                    Foreground="#000000"/>
-                        
+
                         <TextBox PreviewTextInput="TextBox_PreviewTextInputLetters" 
                                  Name="BrandBox" 
                                  Style="{StaticResource BrandBoxStyle}" />

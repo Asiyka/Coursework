@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,23 +7,12 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Security.Cryptography.Xml;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Animation;
-using System.Windows.Xps;
-using System.Windows.Xps.Packaging;
 using System.IO;
-using System.Windows.Controls.Ribbon;
-using System.Runtime.CompilerServices;
 using Microsoft.Win32;
-using Microsoft.VisualBasic;
 using System.ComponentModel;
-using System.Windows.Controls.Primitives;
 
 namespace kursova
 {
